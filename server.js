@@ -16,8 +16,8 @@ const PORT = process.env.PORT || 3000
 const server=app.listen(PORT, () => {
   console.log(`Server is up and running on ${PORT}`)})
 
-  // process.on('unhandledRejection', (err, promise) => {
-  //   console.log(`Log Error: ${err.message}`)
-  //   // Close server & exit process
-  //   server.close(() => process.exit(1))
-  // })
+  process.on('unhandledRejection', (err, promise) => {
+    console.log(`Log Error: ${err.message}`)
+    // Close server & exit process
+    
+  })
