@@ -1,7 +1,7 @@
-class ErrorResponse {
+class ErrorResponse extends Error{
   constructor(errorCode, errorMessage) {
+    super(errorMessage)
     this.errorCode = errorCode;
-    this.errorMessage = errorMessage;
   }
 }
 

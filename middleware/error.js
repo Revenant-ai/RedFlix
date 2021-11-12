@@ -5,15 +5,15 @@ const errorHandler=(err,req,res,next)=>{
 
     error.message=err.message;
 
-    console.log(err);
+    
     if(err.code === 1000){
         const message='Duplicate key'
-        error=new ErrorResponse(message,400)
+        error=new ErrorResponse(400,message)
     }
 
     if(err.name === 'ValidatonError'){
         const message=Object.values(err.errors).map(val=>val.message)
-        error=new ErrorResponse(message,400)
+        error=new ErrorResponse(400,message)
     }
 
     res.status(error.statusCode || 500).json({

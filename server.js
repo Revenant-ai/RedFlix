@@ -11,6 +11,7 @@ const app = express()
 app.use(express.json())
 
 app.use('/api/auth',require('./routes/auth'))
+app.use('/api/private',require('./routes/private'))
 
 //error handler should be the last piece of middleware append before it
 

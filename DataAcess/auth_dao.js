@@ -15,8 +15,11 @@ module.exports={
             email
         }).select('+password');
         return user;
-    }
+    },
+
+
 }
+
 
 
 
