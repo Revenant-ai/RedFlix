@@ -1,6 +1,7 @@
 require('dotenv').config({path:"./config.env"})
 const express = require("express")
 const connectDB = require("./config/db")
+const errorHandler = require("./middleware/error")
 
 //mongo connection
 connectDB()
@@ -11,6 +12,10 @@ app.use(express.json())
 
 app.use('/api/auth',require('./routes/auth'))
 
+//error handler should be the last piece of middleware append before it
+
+app.use(errorHandler)
+
 const PORT = process.env.PORT || 3000
 
 const server=app.listen(PORT, () => {
@@ -18,6 +23,5 @@ const server=app.listen(PORT, () => {
 
   process.on('unhandledRejection', (err, promise) => {
     console.log(`Log Error: ${err.message}`)
-    // Close server & exit process
     
   })

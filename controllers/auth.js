@@ -1,5 +1,5 @@
-const User=require('../models/user')
 const User_DAO=require('../DataAcess/auth_dao')
+const ErrorResponse = require('../utils/errorResponse')
 
 exports.register = async(req,res,next) => {
     const{username,email,password} = req.body;
@@ -10,37 +10,28 @@ exports.register = async(req,res,next) => {
             user:user
         })
     } catch(err){
-        res.status(500).json({
-            suceess:false,
-            err:err.message
-        })
+       next(err)
     }
 }
+
+
+
 
 exports.login = async(req,res,next) => {
     const{email, password}=req.body;
 
     if(!email || !password){
-        return res.status(400).json({
-            success:false,
-            error:"Please enter all fields"
-        })
+        return next(new ErrorResponse('Please provide email and password',400))
     }
 
     try{
         const user=await User_DAO.user_exist(email)
         if(!user){
-            return res.status(404).json({
-                success:false,
-                error:"Invalid credentials"
-            })
+            return next(new ErrorResponse(401,'Invalid credentials'))
         }
         const isMatch=await user.matchPassword(password)
         if(!isMatch){
-                res.status(404).json({
-                success:false,
-                error:"Invalid credentials"
-            })
+            return next(new ErrorResponse(404,'Invalid credentials'))
         }
         res.status(200).json({
             success:true,
