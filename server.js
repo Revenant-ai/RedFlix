@@ -11,7 +11,7 @@ const app = express()
 app.use(express.json())
 
 app.use('/api/auth',require('./routes/auth'))
-app.use('/api/sys',require('./routes/system_admin'))
+//app.use('/api/sys',require('./routes/system_admin'))
 app.use('/api/private',require('./routes/private'))
 
 //error handler should be the last piece of middleware append before it
@@ -19,7 +19,7 @@ app.use('/api/private',require('./routes/private'))
 app.use(errorHandler)
 
 const PORT = process.env.PORT || 3000
-
+console.log(process.env.MONGO_URI)
 const server=app.listen(PORT, () => {
   console.log(`Server is up and running on ${PORT}`)})
 
