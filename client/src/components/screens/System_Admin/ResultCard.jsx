@@ -16,7 +16,9 @@ const ResultCard = ({ movie }) => {
               {movie.title}
             </h5>
             <p class="card-text" style={{ paddingLeft: "20px",paddingTop:"10px" }}>
-              <b>Relsease Year:-</b>{movie.release_date.substring(0, 4)}
+              <b>Relsease Year:-</b>
+
+              {movie.release_date ? movie.release_date.substring(0, 4) : "-"}
             </p>
             <br />
 

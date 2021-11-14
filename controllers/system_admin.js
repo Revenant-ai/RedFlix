@@ -8,7 +8,7 @@ exports.Add_movie = async(req,res,next) => {
     try{
       axios.get("https://api.themoviedb.org/3/movie/671?api_key=129882aa35cd44a9f03ea40193b93383&language=en-US")
       .then(response=>{
-          console.log(response.data.id)
+          console.log(response.data)
       })
         
     } catch(err){
