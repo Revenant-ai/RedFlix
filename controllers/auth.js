@@ -6,9 +6,9 @@ const sendEmail = require("../utils/sendEmail")
 
 
 exports.register = async(req,res,next) => {
-    const{username,email,password} = req.body;
+    const{email,password} = req.body;
     try{
-        const user=await User_DAO.user_reg(username,email,password)
+        const user=await User_DAO.user_reg(email,password)
         sendToken(user,201,res)
     } catch(err){
        next(err)
@@ -19,7 +19,7 @@ exports.login = async(req,res,next) => {
     const{email, password}=req.body;
 
     if(!email || !password){
-        return next(new ErrorResponse('Please provide email and password',400))
+        return next(new ErrorResponse(400,'Please provide email and password'))
     }
 
     try{

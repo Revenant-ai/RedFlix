@@ -1,51 +1,126 @@
-import React from "react";
-import logo from "./logo.png"
 import { useState } from "react";
+import axios from "axios";
+import "../../index.css";
+import logo from "./logo.png";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+const RegisterScreen = ({ history }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-const LoginScreen = () => {
+  const registerHandler = async (e) => {
+    e.preventDefault();
 
-    const [email,setEmail]=useState("")
+    const config = {
+      header: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const { data } = await axios.post(
+        "/api/auth/login",
+        {
+          email,
+          password,
+        },
+        config
+      );
+
+      localStorage.setItem("authToken", data.token);
+
+      window.location.href = "/";
+    } catch (error) {
+      setError(error.response.data.error);
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+    }
+  };
+
   return (
-    <div class="min-h-screen bg-black flex flex-col justify-center sm:py-12">
-  <div class="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
-  <img src={logo} alt="Workflow" class="px-20 py-5" />
-    <div class="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
-      <div class="px-5 py-7">
-        <label class="font-semibold text-sm text-gray-600 pb-1 block">E-mail</label>
-        <input type="email" class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent" value={email} onChange={(e) => setEmail(e.target.value)}/>
-        <label class="font-semibold text-sm text-gray-600 pb-1 block">Password</label>
-        <input type="password" class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent" />
-        <button type="button" class="transition duration-200 bg-red-600 hover:bg-red-800 focus:bg-blue-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block">
-            <span class="inline-block mr-2">Login</span>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 inline-block">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-        </button>
-      </div>
-      <div class="py-5">
-        <div class="grid grid-cols-2 gap-1">
-          <div class="text-center sm:text-left whitespace-nowrap">
-            <button class="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 inline-block align-text-top">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
-                </svg>
-                <span class="inline-block ml-1">Forgot Password</span>
-            </button>
+    <div class="w-full bg-black h-screen">
+      <form onSubmit={registerHandler} class="mx-auto max-w-7xl  flex h-screen">
+        <div class="flex flex-col lg:flex-row">
+          <div class="relative w-full bg-cover lg:w-6/12 xl:w-7/12 bg-black border-red-600  to-gray-100">
+            <div class="relative flex flex-col items-center justify-center w-full h-full px-10 my-20 lg:px-16 lg:my-0">
+              <div class="flex flex-col items-start space-y-8 tracking-tight lg:max-w-3xl">
+                <div class="relative">
+                  <p class="mb-2 font-medium text-red-600 uppercase">
+                    {" "}
+                    We got you covered,
+                  </p>
+                  <img src={logo} alt="Workflow" class="px-20 py-5" />
+                </div>
+                <p class="text-2xl text-red-600">
+                  Want to book Movie tickets from the comfort of your seat sign
+                  up get started and earn exciting rewards as well.
+                </p>
+              </div>
+            </div>
           </div>
-          <div class="text-center sm:text-right  whitespace-nowrap">
-            <button class="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 inline-block align-text-bottom	">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-                <span class="inline-block ml-1">Help</span>
-            </button>
+
+          <div class="w-full bg-white lg:w-6/12 xl:w-5/12">
+            <div class="flex flex-col items-start justify-start w-full h-full p-10 lg:p-16 xl:p-24">
+              <br />
+              <br />
+              <br />
+              <br />
+
+              <h4 class="w-full text-3xl font-bold">Sign In</h4>
+              <p class="text-lg text-gray-500">
+                or, if you have an account you can{" "}
+                <span class="text-red-600 underline">
+                  <Link to="/register">Register</Link>
+                </span>
+              </p>
+              <div class="relative w-full mt-10 space-y-8">
+                <div class=" relative ">
+                  <label for="required-email" class="text-gray-700">
+                    Email
+                    <span class="text-red-500 required-dot">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="required-email"
+                    class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
+                    name="email"
+                    placeholder="Your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+
+                <div class=" relative ">
+                  <label for="required-email" class="text-gray-700">
+                    Password
+                    <span class="text-red-500 required-dot">*</span>
+                  </label>
+                  <input
+                    type="password"
+                    id="required-email"
+                    class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
+                    name="email"
+                    placeholder="Enter Your Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+
+                <div class="relative">
+                  <button class="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-red-600 rounded-lg hover:bg-red-800 ease">
+                    Sign In
+                  </button>
+                </div>
+                {error && <span class="text-red-500">{error}</span>}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
-  </div>
-</div>
   );
 };
 
-export default LoginScreen;
+export default RegisterScreen;

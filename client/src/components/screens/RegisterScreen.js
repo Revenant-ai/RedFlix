@@ -2,14 +2,58 @@ import { useState } from "react";
 import axios from "axios";
 import "../../index.css";
 import logo from "./logo.png";
+import { useNavigate } from "react-router-dom";
+import {Link} from "react-router-dom";
+;
 
-const RegisterScreen = () => {
+const RegisterScreen = ({ history }) => {
   const [email,setEmail]=useState("")
   const [password,setPassword]=useState("")
   const [confirm_password,setConfirmPassword]=useState("")
+  const [error,setError]=useState("")
+
+  const registerHandler = async (e) => {
+    e.preventDefault();
+   
+    const config = {
+      header: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    if (password !== confirm_password) {
+      setPassword("");
+      setConfirmPassword("");
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+      return setError("Passwords do not match");
+    }
+
+    try {
+      const { data } = await axios.post(
+        "/api/auth/register",
+        {
+          email,
+          password,
+        },
+        config
+      );
+
+      localStorage.setItem("authToken", data.token);
+
+      window.location.href = "/login";
+    } catch (error) {
+      setError(error.response.data.error);
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+    }
+  };
+
   return (
     <div class="w-full bg-black h-screen">
-      <div class="mx-auto max-w-7xl  flex h-screen">
+      <form onSubmit={registerHandler} class="mx-auto max-w-7xl  flex h-screen">
         <div class="flex flex-col lg:flex-row">
           <div class="relative w-full bg-cover lg:w-6/12 xl:w-7/12 bg-black border-red-600  to-gray-100">
             <div class="relative flex flex-col items-center justify-center w-full h-full px-10 my-20 lg:px-16 lg:my-0">
@@ -39,9 +83,9 @@ const RegisterScreen = () => {
               <h4 class="w-full text-3xl font-bold">Signup</h4>
               <p class="text-lg text-gray-500">
                 or, if you have an account you can{" "}
-                <a href="#_" class="text-red-600 underline">
-                  sign in
-                </a>
+                <span class="text-red-600 underline">
+                  <Link to="/login">Login</Link>
+                </span>
               </p>
               <div class="relative w-full mt-10 space-y-8">
                 <div class=" relative ">
@@ -93,18 +137,18 @@ const RegisterScreen = () => {
                 </div>
 
                 <div class="relative">
-                  <button
-                    href="#_"
-                    class="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-red-600 rounded-lg hover:bg-red-800 ease"
-                  >
+                  <button 
+                   
+                    class="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-red-600 rounded-lg hover:bg-red-800 ease">
                     Create Account
                   </button>
                 </div>
+                {error && <span class="text-red-500">{error}</span>}
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

@@ -1,9 +1,8 @@
 const User=require('../models/user');
 
 module.exports={
-    user_reg:async (username,email,password)=>{
+    user_reg:async (email,password)=>{
         const user= await User.create({
-        username,
         email,
         password
         })
