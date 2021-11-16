@@ -1,6 +1,7 @@
 import { BrowserRouter as Router,Switch,Route} from 'react-router-dom'
+import RegisterScreen from './components/screens/RegisterScreen';
 import Home from './components/screens/System_Admin/Home';
-
+import LoginScreen  from './components/screens/LoginScreen';
 
 //import PrivateRoute from './components/PrivateRoute'
 
@@ -13,7 +14,7 @@ import Home from './components/screens/System_Admin/Home';
 
 const App=()=>{
   return (
-    <Home/>
+    <RegisterScreen/>
     // <Router>
     //     <div className="App">
     //     <Switch>
