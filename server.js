@@ -13,9 +13,9 @@ app.use(express.json())
 app.use('/api/auth',require('./routes/auth'))
 app.use('/api/sys',require('./routes/system_admin'))
 app.use('/api/private',require('./routes/private'))
+app.use('/api/home',require('./routes/home'))
 
 //error handler should be the last piece of middleware append before it
-
 app.use(errorHandler)
 
 const PORT = process.env.PORT || 3000

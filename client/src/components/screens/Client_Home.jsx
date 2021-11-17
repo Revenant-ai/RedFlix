@@ -2,8 +2,10 @@ import React from 'react'
 
 const Client_Home = () => {
     return (
-        <div>
-            <h1>Hello Wlecome to home page</h1>
+        <div class="flex flex-row">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
         </div>
     )
 }

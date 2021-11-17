@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import ResultCard from "./ResultCard"
 
-const Home = () => {
+const Sys_Admin_Home = () => {
 
     const[query, setQuery] = useState('')
     const[results, setResults] = useState([])
@@ -45,4 +45,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default Sys_Admin_Home

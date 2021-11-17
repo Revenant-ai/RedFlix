@@ -1,9 +1,44 @@
 import React from "react";
+import { useState } from "react";
+import axios from "axios";
+
+
+
 
 const ResultCard = ({ movie }) => {
+
+  const [error, setError] = useState("");
+
+
+  const MovieHandler = async (e) => {
+    e.preventDefault();
+  
+    const config = {
+      header: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const { data } = await axios.put(
+        `/api/sys/addmovie/${movie.id}`,
+        {
+          movie: movie.id,
+        },
+        config
+      );
+      window.location.href = "/";
+    } catch (error) {
+      setError(error.response.data.error);
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+    }
+  };
+
+
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
-      <div class="card" style={{ width: "500px", marginTop: "20px" }}>
+      <div class="border border-black py-2 px-2" style={{ width: "500px", marginTop: "20px" }}>
         <div class="card-body" style={{ display: "flex" }}>
           <img
             src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
@@ -12,7 +47,7 @@ const ResultCard = ({ movie }) => {
             alt={`${movie.title} Poster`}
           />
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <h5 class="card-title" style={{ paddingLeft: "20px" }}>
+            <h5 class="font-medium text-2xl" style={{ paddingLeft: "20px" }}>
               {movie.title}
             </h5>
             <p class="card-text" style={{ paddingLeft: "20px",paddingTop:"10px" }}>
@@ -23,10 +58,10 @@ const ResultCard = ({ movie }) => {
             <br />
 
             <button
+            onClick={MovieHandler}
               type="button"
-              class="btn btn-danger"
-              style={{ marginLeft: "10px" ,width:"300px"}}
-            >
+              class="bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 border border-red-700 rounded"
+              style={{ marginLeft: "10px" ,width:"300px"}}>
               Add Movie
             </button>
           </div>

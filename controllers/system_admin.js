@@ -6,7 +6,8 @@ const Movie_DAO=require("../DataAcess/movie_dao")
 exports.Add_movie = async(req,res,next) => {
     const{movie_id} = req.body;
     try{
-      axios.get("https://api.themoviedb.org/3/movie/671?api_key=129882aa35cd44a9f03ea40193b93383&language=en-US")
+      const id=req.params.id;
+      axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=129882aa35cd44a9f03ea40193b93383&language=en-US`)
       .then(response=>{
         console.log(response.data);
         const poster=response.data.poster_path
@@ -20,3 +21,4 @@ exports.Add_movie = async(req,res,next) => {
        next(err)
     }
 }
+

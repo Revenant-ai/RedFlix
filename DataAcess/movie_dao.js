@@ -6,17 +6,24 @@ module.exports={
 
             title,
             year,
-            backdrop,
+            backdrop: `https://image.tmdb.org/t/p/original${backdrop}`,
             id,
             description,
             genres,
             status,
             vote_average,
             vote_count,
-            poster,
+            poster: `https://image.tmdb.org/t/p/w500/${poster}`,
             runtime,
 
         })
         return Movie_det
+    }
+}
+
+module.exports={
+    getMovies:async()=>{
+        const Movies=await Movie.find()
+        db.movies.find({})
     }
 }
