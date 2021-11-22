@@ -23,6 +23,6 @@ const Movie=require("../models/Movie")
 
 
     exports.getMovies=async()=>{
-        const movies=await  Movie.find()
+        const movies=await Movie.find()
         return movies
     }
