@@ -1,5 +1,6 @@
 const { default: axios } = require("axios");
 const Movie_DAO=require("../DataAcess/movie_dao")
+const Theater_DAO=require("../DataAcess/theater_dao")
 
 
 exports.Add_movie = async(req,res,next) => {
@@ -19,5 +20,20 @@ exports.Add_movie = async(req,res,next) => {
     } catch(err){
        next(err)
     }
+}
+exports.Add_theater=async(req,res,next)=>{
+  
+  try{
+    const{theater_name,theater_city,theater_id,theater_address,screens} = req.body;
+      console.log(req.body);
+      const theater=await Theater_DAO.addtheater(theater_name,theater_city,theater_id,theater_address,screens)
+      res.status(200).json({
+        message:"theater added successfully",
+        theater
+      })
+  }
+  catch(err){
+    next(err)
+  }
 }
 
