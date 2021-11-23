@@ -22,7 +22,12 @@ const Movie=require("../models/Movie")
 
 
 
-    exports.getMovies=async()=>{
-        const movies=await Movie.find()
+    exports.get_upcoming_movies=async()=>{
+        const movies=await Movie.find({status:"unreleased"})
+        return movies
+    }
+
+    exports.get_current_movies=async()=>{
+        const movies=await Movie.find({status:"released"})
         return movies
     }
