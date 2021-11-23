@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import logo from "./logo.png";
-import smallLogo from "./redflix-logo-small.png";
+import logo from "../../components/images/logo.png";
+import smallLogo from "../../components/images/logo.png";
 
 const ResetPasswordScreen = ({ match }) => {
   const [password, setPassword] = useState("");

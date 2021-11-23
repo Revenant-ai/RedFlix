@@ -1,17 +1,15 @@
 import { BrowserRouter as Router,Routes,Route} from 'react-router-dom'
-import PrivateScreen from './components/routing/PrivateRoute'
 
 
 //import PrivateRoute from './components/PrivateRoute'
 
 //screens
-import PrivateRoute from "./components/screens/PrivateScreen"
-import LoginScreen from "./components/screens/LoginScreen"
-import RegisterScreen from "./components/screens/RegisterScreen"
-import ForgotPasswordScreen from "./components/screens/ForgotPasswordScreen"
-import ResetPasswordScreen from "./components/screens/ResetPasswordScreen"
-import Client_Home  from './components/screens/Client/Client_Home'
-import Sys_Admin_Home from "./components/screens/System_Admin/Home"
+import LoginScreen from "./screens/Client/LoginScreen"
+import RegisterScreen from "./screens/Client/RegisterScreen"
+import ForgotPasswordScreen from "./screens/Client/ForgotPasswordScreen"
+import ResetPasswordScreen from "./screens/Client/ResetPasswordScreen"
+import Client_Home  from './screens/Client/Client_Home'
+import Sys_Admin_Home from "./screens/System_Admin/Home"
 
 const App=()=>{
   return (

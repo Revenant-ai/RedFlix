@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import ResultCard from "./ResultCard"
+import ResultCard from "../../components/ResultCard"
 
 const Sys_Admin_Home = () => {
 

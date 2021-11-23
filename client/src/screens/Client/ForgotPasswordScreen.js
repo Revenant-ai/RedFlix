@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-import logo from "./logo.png"
-import smallLogo from "./redflix-logo-small.png"
+import logo from "../../components/images/logo.png"
+import smallLogo from "../../components/images/redflix-logo-small.png"
 const ForgotPasswordScreen = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
