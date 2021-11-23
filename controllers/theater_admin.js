@@ -1,6 +1,6 @@
 const { default: axios } = require("axios");
 const show_DAO = require("../DataAcess/show_dao");
-const screen_DAO = require("../DataAcess/theater_dao");
+const screen_DAO = require("../DataAcess/screen_dao");
 
 exports.Add_show = async (req, res) => {
     const { movie, theater_id, date,time, screen,price,seats} = req.body;
@@ -21,8 +21,8 @@ exports.get_show_movie= async (req, res) => {
 }
 
 exports.Add_screen= async (req, res) => {
-    const {screen_num,row,col,theater_id}=req.body;
-    const screen = await show_DAO.addScreen(screen_num,row,col,theater_id);
+    const {theater_id,Screen_num,Row,Col}=req.body;
+    const screen = await screen_DAO.addScreen(theater_id,Screen_num,Row,Col);
     res.send(screen)
 }
 
