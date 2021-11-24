@@ -1,8 +1,7 @@
 import React from 'react'
 
-const TheaterAdminDashboard = () => {
+const admin_sidebar = () => {
     return (
-        <div>
         <div class="fixed flex flex-col top-14 left-0 w-14 hover:w-64 md:w-64 bg-black dark:bg-gray-900 h-full text-white transition-all duration-300 border-none z-10 sidebar">
         <div class="overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow">
           <ul class="flex flex-col py-4 space-y-1">
@@ -71,10 +70,8 @@ const TheaterAdminDashboard = () => {
           </ul>
           <p class="mb-14 px-5 py-3 hidden md:block text-center text-xs">Copyright @2021</p>
         </div>
-       
       </div>
-    </div>
     )
 }
 
-export default TheaterAdminDashboard
+export default admin_sidebar
