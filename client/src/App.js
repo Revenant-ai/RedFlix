@@ -12,6 +12,7 @@ import ForgotPasswordScreen from "./components/screens/ForgotPasswordScreen"
 import ResetPasswordScreen from "./components/screens/ResetPasswordScreen"
 import Client_Home  from './components/screens/Client/Client_Home'
 import Sys_Admin_Home from "./components/screens/System_Admin/Home"
+import TheaterAdminDashboard from "./components/screens/Theater_Admin/dashboard"
 
 const App=()=>{
   return (
@@ -25,6 +26,7 @@ const App=()=>{
              <Route exact path="/" element={<Client_Home/>}/>
             <Route exact path="/passwordreset/:res_token" element={<ResetPasswordScreen/>}/>
             <Route exact path="/admin-dashboard" element={<Sys_Admin_Home/>}/>
+            <Route exact path="/theater-dashboard" element={<TheaterAdminDashboard/>}/>
            </Routes>
          </div>
      </Router>
