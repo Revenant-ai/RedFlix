@@ -1,10 +1,10 @@
 import React from 'react'
-import admin_sidebar from '../../components/admin_sidebar'
+import Admin_sidebar from "../../components/admin_sidebar"
 
 const TheaterAdminDashboard = () => {
     return (
         <div>
-            <admin_sidebar />
+            <Admin_sidebar/>
         </div>
     )
 }
