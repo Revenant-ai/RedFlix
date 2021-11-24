@@ -1,22 +1,25 @@
 const { default: axios } = require("axios");
+const { response } = require("express");
 const Movie_DAO=require("../DataAcess/movie_dao")
 const Theater_DAO=require("../DataAcess/theater_dao")
-
+const TMDB_DAO=require("../DataAcess/tmdb_dao")
 
 exports.Add_movie = async(req,res,next) => {
     const{movie_id} = req.body;
     try{
       const id=req.params.id;
-      axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=129882aa35cd44a9f03ea40193b93383&language=en-US`)
-      .then(response=>{
-        console.log(response.data);
-        const poster=response.data.poster_path
-        const runtime=response.data.runtime
-        const movie=Movie_DAO.addmovie(response.data.title,response.data.release_date,response.data.backdrop_path,response.data.id,
-          response.data.overview,response.data.genres,"unreleased",response.data.vote_average,response.data.vote_count,poster,runtime)
-          console.log(response.data.overview);
-      })
-        
+      //const movie_details=await 
+      const movie_details = await TMDB_DAO.getMovieTMDB(id);
+      const credits = await TMDB_DAO.getMovieCreditsTMDB(id);
+      const cast=(credits.cast===undefined)?[]:credits.cast.slice(0,10);
+          const crew=(credits.crew===undefined)?[]:credits.crew.slice(0,10);
+          console.log(`-------------------------------------\n${credits}`)
+          console.log(id)
+          //console.log(crew)
+          const poster=movie_details.poster_path
+            const runtime=movie_details.runtime
+            const movie=Movie_DAO.addmovie(movie_details.title,movie_details.release_date,movie_details.backdrop_path,movie_details.id,
+              movie_details.overview,movie_details.genres,"unreleased",movie_details.vote_average,movie_details.vote_count,poster,runtime,cast,crew)
     } catch(err){
        next(err)
     }

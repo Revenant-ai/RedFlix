@@ -12,6 +12,8 @@ const MovieSchema = new mongoose.Schema({
     vote_count:{ type: Number, required: true },
     poster: { type: String, required: true },
     runtime: { type: Number, required: true },
+    cast: {type:Array,required:true},
+    crew: {type:Array,required:true},
 })
 
 const movie= mongoose.model('movie', MovieSchema)
