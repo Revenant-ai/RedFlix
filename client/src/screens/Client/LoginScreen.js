@@ -1,38 +1,26 @@
 import { useState } from "react";
 import axios from "axios";
 import "../../index.css";
-import logo from "./logo.png";
+import logo from "../../components/images/logo.png";
 import { useNavigate } from "react-router-dom";
-import {Link} from "react-router-dom";
-;
-
+import { Link } from "react-router-dom";
 const RegisterScreen = ({ history }) => {
-  const [email,setEmail]=useState("")
-  const [password,setPassword]=useState("")
-  const [confirm_password,setConfirmPassword]=useState("")
-  const [error,setError]=useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const registerHandler = async (e) => {
     e.preventDefault();
-   
+
     const config = {
       header: {
         "Content-Type": "application/json",
       },
     };
 
-    if (password !== confirm_password) {
-      setPassword("");
-      setConfirmPassword("");
-      setTimeout(() => {
-        setError("");
-      }, 5000);
-      return setError("Passwords do not match");
-    }
-
     try {
       const { data } = await axios.post(
-        "/api/auth/register",
+        "/api/auth/login",
         {
           email,
           password,
@@ -42,7 +30,7 @@ const RegisterScreen = ({ history }) => {
 
       localStorage.setItem("authToken", data.token);
 
-      window.location.href = "/login";
+      window.location.href = "/";
     } catch (error) {
       setError(error.response.data.error);
       setTimeout(() => {
@@ -80,11 +68,11 @@ const RegisterScreen = ({ history }) => {
               <br />
               <br />
 
-              <h4 class="w-full text-3xl font-bold">Signup</h4>
+              <h4 class="w-full text-3xl font-bold">Sign In</h4>
               <p class="text-lg text-gray-500">
                 or, if you have an account you can{" "}
                 <span class="text-red-600 underline">
-                  <Link to="/login">Login</Link>
+                  <Link to="/register">Register</Link>
                 </span>
               </p>
               <div class="relative w-full mt-10 space-y-8">
@@ -100,7 +88,7 @@ const RegisterScreen = ({ history }) => {
                     name="email"
                     placeholder="Your email"
                     value={email}
-                    onChange={(e)=>setEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
 
@@ -116,31 +104,13 @@ const RegisterScreen = ({ history }) => {
                     name="email"
                     placeholder="Enter Your Password"
                     value={password}
-                    onChange={(e)=>setPassword(e.target.value)}
-                  />
-                </div>
-
-                <div class=" relative ">
-                  <label for="required-email" class="text-gray-700">
-                    Confirm Password
-                    <span class="text-red-500 required-dot">*</span>
-                  </label>
-                  <input
-                    type="password"
-                    id="required-email"
-                    class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
-                    name="email"
-                    placeholder="Confirm your password"
-                    value={confirm_password}
-                    onChange={(e)=>setConfirmPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
 
                 <div class="relative">
-                  <button 
-                   
-                    class="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-red-600 rounded-lg hover:bg-red-800 ease">
-                    Create Account
+                  <button class="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-red-600 rounded-lg hover:bg-red-800 ease">
+                    Sign In
                   </button>
                 </div>
                 {error && <span class="text-red-500">{error}</span>}

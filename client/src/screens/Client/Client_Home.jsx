@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import List from "./List"
+import List from "../../components/List"
 
 const Client_Home = () => {
   const [upcoming, setupcoming] = useState([]);
