@@ -1,7 +1,7 @@
 const Movie=require("../models/Movie")
 
 
-    exports.addmovie=async(title,year,backdrop,id,description,genres,status,vote_average,vote_count,poster,runtime)=>{
+    exports.addmovie=async(title,year,backdrop,id,description,genres,status,vote_average,vote_count,poster,runtime,cast,crew)=>{
         const Movie_det=await Movie.create({
 
             title,
@@ -15,6 +15,8 @@ const Movie=require("../models/Movie")
             vote_count,
             poster: `https://image.tmdb.org/t/p/w500/${poster}`,
             runtime,
+            cast,
+            crew,
 
         })
         return Movie_det
