@@ -11,3 +11,7 @@ exports.addtheater = async (theater_name,theater_city,theater_id,theater_address
 })
 return theater
 }
+
+exports.getScreenDetails = async (theater_id,sceen_num) => {
+    return 
+}

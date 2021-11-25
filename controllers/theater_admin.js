@@ -4,6 +4,12 @@ const screen_DAO = require("../DataAcess/screen_dao");
 
 exports.Add_show = async (req, res) => {
     const { movie, theater_id, date,time, screen,price,seats} = req.body;
+    const {row,col}=dao.fun()
+    A:{
+        
+    }
+
+
     const show = await show_DAO.addShow(movie, theater_id, date,time, screen,price,seats)
     res.send(show)
 }
