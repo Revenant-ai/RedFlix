@@ -1,10 +1,36 @@
 import { ContactsTwoTone, SettingsInputAntennaTwoTone } from "@material-ui/icons";
 import { useRef, useState } from "react";
+import axios from "axios";
 
 function ScreenArrangement() {
     const [rowstate,setRow]=useState(0);
     const [colstate,setCol]=useState(0);
     const [grid,setGrid]=useState([]);
+
+    const Submit_handler=async (e)=>{
+    const config = {
+      header: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      await axios.post(
+        "/api/theat-admin/addscreen",
+        {
+            theater_id:"ABAD01",
+            Screen_num:1,
+            grid
+            
+
+        },
+        config
+      );
+
+    } catch (error) {
+        console.log(error);
+    }   
+    }
 
     const initialiseStatusGrid = (rows,cols)=>{
         let statusGrid=[];
@@ -77,7 +103,7 @@ function ScreenArrangement() {
                 }
                </table>
             </div>
-
+                <button onClick={Submit_handler} className="rounded-sm bg-red-600 p-1 mt-2">Store ME!!!!!!</button>     
         </div>
     )
 }

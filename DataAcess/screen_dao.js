@@ -1,10 +1,9 @@
 var Theater=require('../models/theater');
 
-exports.addScreen=async(theater_id,Screen_num,Row,Col)=>{
+exports.addScreen=async(theater_id,Screen_num,grid)=>{
     const screens={
         screen_num:Screen_num,
-        row:Row,
-        col:Col
+        grid:grid
     }
     await Theater.findOneAndUpdate({theater_id:theater_id},{$push:{screens:screens}})
 }
