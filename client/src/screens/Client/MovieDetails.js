@@ -7,7 +7,7 @@ import Poster from "../../components/Poster";
 
 function MovieDetails() {
 
-    const {movie_id,setmovie} = useParams(17577);
+  const {movie_id} = useParams();
   const [movie_details,setMovieDetails] = useState({});
   const [isLoading, setLoading] = useState(true);
   
@@ -15,18 +15,9 @@ function MovieDetails() {
     axios.get(`/api/home/movie/${movie_id}`)
     .then(res => {
       setMovieDetails(res.data);
-      console.log(res.data);
-      console.log(movie_details)
       setLoading(false);
     })
   },[]);
-<<<<<<< HEAD
-=======
-
-  if (isLoading) {
-    return <div className="App">Loading...</div>;
-  }
->>>>>>> 0f39b9698c154c4575d64db1ac7eb31c0806bc92
 
   if (isLoading) {
     return <div className="App">Loading...</div>;
