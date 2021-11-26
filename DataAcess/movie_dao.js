@@ -33,3 +33,8 @@ const Movie=require("../models/Movie")
         const movies=await Movie.find({status:"released"})
         return movies
     }
+
+    exports.getMovieById =async(movie_id)=>{
+        const movie=await Movie.find({id:parseInt(movie_id)})
+        return movie;
+    }
