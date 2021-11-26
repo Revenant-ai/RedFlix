@@ -1,7 +1,6 @@
 const Theater = require('../models/theater')
 
 exports.addtheater = async (theater_name,theater_city,theater_id,theater_address) => {
-    console.log(theater_name,theater_city,theater_id,theater_address);
     const theater=await Theater.create({
         theater_name,
         theater_address,
@@ -12,6 +11,4 @@ exports.addtheater = async (theater_name,theater_city,theater_id,theater_address
 return theater
 }
 
-exports.getScreenDetails = async (theater_id,sceen_num) => {
-    return 
-}
+

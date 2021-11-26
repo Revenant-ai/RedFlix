@@ -2,17 +2,7 @@ const { default: axios } = require("axios");
 const show_DAO = require("../DataAcess/show_dao");
 const screen_DAO = require("../DataAcess/screen_dao");
 
-exports.Add_show = async (req, res) => {
-    const { movie, theater_id, date,time, screen,price,seats} = req.body;
-    const {row,col}=dao.fun()
-    A:{
-        
-    }
 
-
-    const show = await show_DAO.addShow(movie, theater_id, date,time, screen,price,seats)
-    res.send(show)
-}
 
 exports.get_shows = async (req, res) => {
     const{theater_id}=req.body;
@@ -47,10 +37,25 @@ exports.Add_screen= async (req, res) => {
     res.send(screen)
 }
 
-exports.get_screens= async (req, res) => {
+exports.Get_screen= async (req, res) => {
     const {theater_id,screen_num}=req.body;
-    const screens = await show_DAO.getScreens(theater_id,screen_num);
-    res.send("done")
+    const screens = await screen_DAO.getscreen(theater_id,screen_num);
+    console.log(screens)
+}
+ async function Get_grid(theater_id,screen_num)  {
+    const grid = await screen_DAO.getSeats(theater_id,screen_num);
+    return grid
 }
 
+exports.Add_show = async (req, res) => {
+    const { movie, theater_id, date,time, screen,price,seats} = req.body;
+    const grid=await Get_grid(theater_id,screen)
+    const show = await show_DAO.addShow(movie, theater_id, date,time, screen,price,seats,grid)
+    res.send(show)
+}
 
+exports.Get_show=async (req, res) => {
+    const {show_id}=req.body;
+    const show = await show_DAO.getShow_by_id(show_id);
+    res.send(show)
+}

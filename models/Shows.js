@@ -18,15 +18,15 @@ const ShowSchema = new mongoose.Schema({
         required:[true,"provide a time"],
     },
     screen:{
-        type:String,
+        type:Number,
         required:[true,"provide a screen"],
     },
     price:{
         type:String,
         required:[true,"provide a price"],
     },
-    available_seats:{
-        type:Number,
+    grid:{
+        type:Array
     }
     
 })
