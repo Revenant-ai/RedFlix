@@ -7,7 +7,7 @@ const Movie_card = ({ movie }) => {
         <Link to={`/movie-detail/${movie.id}`}> <img
           src={movie.poster}
           alt="Movie Poster"
-          class="rounded-lg border- border-black"
+          class="rounded-lg border border-black"
         /></Link>
       </div>  
   );
