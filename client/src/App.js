@@ -15,7 +15,8 @@ import Sys_Admin_Home from "./screens/System_Admin/Home"
 import TheaterAdminDashboard from "./screens/Theater_Admin/dashboard"
 import ScreenArrangement from "./screens/Theater_Admin/ScreenArrangement"
 import Client_Home from './screens/Client/Client_Home'
-
+import Manage_shows from './screens/Theater_Admin/manage_shows'
+import Manage_screen from './screens/Theater_Admin/manage_screen'
 
 const App=()=>{
   return (
@@ -31,6 +32,8 @@ const App=()=>{
             <Route exact path="/admin-dashboard" element={<Sys_Admin_Home/>}/>
             <Route exact path="/theater-dashboard" element={<TheaterAdminDashboard/>}/>
             <Route exact path="/theater-screenArrangement" element={<ScreenArrangement/>}/>
+            <Route exact path="/theater-show" element={<Manage_shows/>}/>
+            <Route excat path="/theater-screen" element={<Manage_screen/>}/>
            </Routes>
          </div>
      </Router>
