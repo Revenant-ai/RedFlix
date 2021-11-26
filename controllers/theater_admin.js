@@ -16,6 +16,7 @@ exports.get_show_movie= async (req, res) => {
     res.send(shows)
 }
 
+
 exports.Add_screen= async (req, res) => {
     const {theater_id,Screen_num,grid}=req.body;
     //const screen = await screen_DAO.addScreen(theater_id,Screen_num);
@@ -36,6 +37,7 @@ exports.Add_screen= async (req, res) => {
     const screen=await screen_DAO.addScreen(theater_id,Screen_num,grid)
     res.send(screen)
 }
+
 
 exports.Get_screen= async (req, res) => {
     const {theater_id,screen_num}=req.body;

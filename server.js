@@ -28,5 +28,5 @@ const server=app.listen(PORT, () => {
 
   process.on('unhandledRejection', (err, promise) => {
     console.log(`Log Error: ${err.message}`)
-    
+
   })
