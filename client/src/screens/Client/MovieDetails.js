@@ -7,22 +7,29 @@ import Poster from "../../components/Poster";
 
 function MovieDetails() {
 
-    const {movie_id} = useParams();
+    const {movie_id,setmovie} = useParams(17577);
   const [movie_details,setMovieDetails] = useState({});
+  const [isLoading, setLoading] = useState(true);
   
-  useEffect(() => {
+   useEffect(() => {
     axios.get(`/api/home/movie/${movie_id}`)
-    .then(res=>{
-        setMovieDetails(res.data);
-        console.log(res.data)
+    .then(res => {
+      setMovieDetails(res.data);
+      console.log(res.data);
+      console.log(movie_details)
+      setLoading(false);
     })
-  },[movie_id]);
+  },[]);
+
+  if (isLoading) {
+    return <div className="App">Loading...</div>;
+  }
 
 
   return (
     <div>
       <Header />
-      <Poster title={movie_details.title} runtime={movie_details.runtime} genres={movie_details.genres} status={movie_details.status} backdrop={movie_details.backdrop} release={movie_details.year}/>
+     {  <Poster title={movie_details.title} runtime={movie_details.runtime} genres={movie_details.genres} status={movie_details.status} backdrop={movie_details.backdrop} release={movie_details.year}/> }
       <div className="border rounded-xl border-red-600 shadow-lg mx-3 md:mx-14 my-8 p-5">
         <h1 className="subpixel-antialiased text-4xl font-semibold ">
           About the movie
@@ -31,14 +38,14 @@ function MovieDetails() {
           {movie_details.description}
         </p>
       </div>
-      <div className="mx-3 md:mx-14 my-5 p-5 border-t-2">
+       <div className="mx-3 md:mx-14 my-5 p-5 border-t-2">
         <p className="subpixel-antialiased text-4xl font-semibold">Cast</p>
         <Crewbox crew={movie_details.crew} />
       </div>
       <div className="mx-3 md:mx-14 my-5 p-5 border-t-2">
         <p className="subpixel-antialiased text-4xl font-semibold">Crew</p>
         <Crewbox crew={movie_details.cast} />
-      </div>
+      </div> 
     </div>
   );
 }
