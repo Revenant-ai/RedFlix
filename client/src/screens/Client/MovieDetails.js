@@ -7,7 +7,7 @@ import Poster from "../../components/Poster";
 
 function MovieDetails() {
 
-    const {movie_id} = useParams();
+    const {movie_id,setmovie} = useParams(17577);
   const [movie_details,setMovieDetails] = useState({});
   const [isLoading, setLoading] = useState(true);
   
@@ -20,6 +20,13 @@ function MovieDetails() {
       setLoading(false);
     })
   },[]);
+<<<<<<< HEAD
+=======
+
+  if (isLoading) {
+    return <div className="App">Loading...</div>;
+  }
+>>>>>>> 0f39b9698c154c4575d64db1ac7eb31c0806bc92
 
   if (isLoading) {
     return <div className="App">Loading...</div>;
@@ -28,7 +35,7 @@ function MovieDetails() {
   return (
     <div>
       <Header />
-      <Poster title={movie_details.title} runtime={movie_details.runtime} genres={movie_details.genres} status={movie_details.status} backdrop={movie_details.backdrop} release={movie_details.year}/>
+     {  <Poster title={movie_details.title} runtime={movie_details.runtime} genres={movie_details.genres} status={movie_details.status} backdrop={movie_details.backdrop} release={movie_details.year}/> }
       <div className="border rounded-xl border-red-600 shadow-lg mx-3 md:mx-14 my-8 p-5">
         <h1 className="subpixel-antialiased text-4xl font-semibold ">
           About the movie
@@ -37,14 +44,14 @@ function MovieDetails() {
           {movie_details.description}
         </p>
       </div>
-      <div className="mx-3 md:mx-14 my-5 p-5 border-t-2">
+       <div className="mx-3 md:mx-14 my-5 p-5 border-t-2">
         <p className="subpixel-antialiased text-4xl font-semibold">Cast</p>
         <Crewbox crew={movie_details.crew} />
       </div>
       <div className="mx-3 md:mx-14 my-5 p-5 border-t-2">
         <p className="subpixel-antialiased text-4xl font-semibold">Crew</p>
         <Crewbox crew={movie_details.cast} />
-      </div>
+      </div> 
     </div>
   );
 }

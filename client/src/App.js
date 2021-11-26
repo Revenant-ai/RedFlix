@@ -33,10 +33,8 @@ const App=()=>{
             <Route exact path="/admin-dashboard" element={<Sys_Admin_Home/>}/>
             <Route exact path="/theater-dashboard" element={<TheaterAdminDashboard/>}/>
             <Route exact path="/theater-screenArrangement" element={<ScreenArrangement/>}/>
-
             <Route exact path="/theater-show" element={<Manage_shows/>}/>
             <Route excat path="/theater-screen" element={<Manage_screen/>}/>
-
             <Route exact path="/movie-detail/:movie_id" element={<MovieDetails/>}/>
            </Routes>
          </div>

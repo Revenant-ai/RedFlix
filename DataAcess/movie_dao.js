@@ -35,6 +35,7 @@ const Movie=require("../models/Movie")
     }
 
     exports.getMovieById =async(movie_id)=>{
-        const movie=await Movie.find({id:parseInt(movie_id)})
+        const movie=await Movie.find({id:movie_id})
+        console.log(movie)
         return movie[0];
     }
