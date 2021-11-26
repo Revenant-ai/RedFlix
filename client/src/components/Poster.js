@@ -22,8 +22,8 @@ function Poster({title, runtime, genres, status, backdrop, release}) {
             <section className="flex flex-wrap mb-2">
             {
               genres.map((item)=>(
-                <div key={item} className="subpixel-antialiased text-black text-md md:text-xl font-semibold px-2 py-1 mr-1 bg-white rounded-md">
-                  {item}
+                <div key={item.id} className="subpixel-antialiased text-black text-md md:text-xl font-semibold px-2 py-1 mr-1 bg-white rounded-md">
+                  {item.name}
                 </div>
               ))
             }

@@ -4,9 +4,8 @@ import Admin_header from '../../components/admin_header'
 
 const manage_screen = () => {
   return (
-    <div class="h-screen bg-black">
-      <Admin_header />
-      <Admin_sidebar />
+    <div>
+      <input type="text" className="border rounded-sm border-red-600" placeholder="manage screen ka dabba"></input>
     </div>
   )
 }

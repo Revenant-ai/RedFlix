@@ -5,10 +5,8 @@ import ScreenArrangement from './ScreenArrangement'
 
 const manage_shows = () => {
     return (
-        <div class="h-screen bg-black">
-        <Admin_header/>
-         <Admin_sidebar/>
-         
+        <div>
+        <input type="text" placeholder="ye shows ka dabbad hai" className="border border-red-600 rounded-sm"></input>
      </div>
     )
 }

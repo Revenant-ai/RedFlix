@@ -14,10 +14,10 @@ import ResetPasswordScreen from "./screens/Client/ResetPasswordScreen"
 import Sys_Admin_Home from "./screens/System_Admin/Home"
 import TheaterAdminDashboard from "./screens/Theater_Admin/dashboard"
 import ScreenArrangement from "./screens/Theater_Admin/ScreenArrangement"
-import Client_Home from './screens/Client/Client_Home'HEAD
+import Client_Home from './screens/Client/Client_Home'
 import Manage_shows from './screens/Theater_Admin/manage_shows'
 import MovieDetails from './screens/Client/MovieDetails'
-
+import Manage_screen from './screens/Theater_Admin/manage_screen'
 
 const App=()=>{
   return (

@@ -3,7 +3,7 @@ import logo from "../components/images/logo.png";
 
 const Admin_header = () => {
     return (
-        <div className="z-20 relative bg-black flex justify-center items-center border-2 border-red-600">
+        <div className="relative bg-black flex justify-center items-center border-2 border-red-600">
             <img src={logo}/>
         </div>
     )
