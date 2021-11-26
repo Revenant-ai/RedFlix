@@ -12,8 +12,8 @@ import RegisterScreen from "./screens/Client/RegisterScreen"
 import ForgotPasswordScreen from "./screens/Client/ForgotPasswordScreen"
 import ResetPasswordScreen from "./screens/Client/ResetPasswordScreen"
 import Sys_Admin_Home from "./screens/System_Admin/Home"
-import TheaterAdminDashboard from "./screens/TheaterAdmin/dashboard"
-import ScreenArrangement from "./screens/TheaterAdmin/ScreenArrangement"
+import TheaterAdminDashboard from "./screens/Theater_Admin/dashboard"
+import ScreenArrangement from "./screens/Theater_Admin/ScreenArrangement"
 import Client_Home from './screens/Client/Client_Home'
 
 
