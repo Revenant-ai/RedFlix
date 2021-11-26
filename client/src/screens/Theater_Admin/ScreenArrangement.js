@@ -55,10 +55,12 @@ function ScreenArrangement() {
     }
     const createRows = (i,totalCols)=>{
             const cols=[];
+            let counter=1;
             for(let j=0;j<totalCols;j++)
             {
                 const bg=grid[i][j].isSeat?"bg-red-600":"bg-gray-600";
-                cols.push(<div onClick={(e)=>{changeSeatStatus(i,j,e);}} className={`border ${bg} rounded-md m-1 px-2 py-1 cursor-pointer`} key={`${i}${j}`}>{j}</div>);
+                const data=grid[i][j].isSeat?counter++:"-";
+                cols.push(<div onClick={(e)=>{changeSeatStatus(i,j,e);}} className={`border ${bg} rounded-md m-1 px-2 py-1 cursor-pointer`} key={`${i}${j}`}>{data}</div>);
             }
             return cols;
     }
@@ -69,16 +71,18 @@ function ScreenArrangement() {
         const renderGrid=[];
         console.log(totalRows,totalCols)
         console.log(grid)
+        let data=65;
         for(let i=0;i<totalRows;i++)
         {
             renderGrid.push(<tr className="" key={i}>
-                <td className="pr-2" key={`${i}1`}>{i}</td>
+                <td className="pr-2" key={`${i}1`}>{String.fromCharCode(data)}</td>
                 <td className="flex" key={`${i}2`}>
                    {
                        createRows(i,totalCols).map(item=>item)
                    }
                 </td>
             </tr>)
+            data++;
         }
         
         return renderGrid;
