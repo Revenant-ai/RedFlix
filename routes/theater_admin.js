@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const {Add_show,get_shows,get_show_movie,Add_screen,Get_screen,Get_show} = require("../controllers/theater_admin")
+const {check_admin} = require("../middleware/auth")
 
 router.route("/addshow").post(Add_show)
 router.route("/getshow-theat").get(get_shows)

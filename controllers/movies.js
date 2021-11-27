@@ -13,3 +13,8 @@ exports.getMovieDetailsById = async (req, res, next) => {
   const movie = await Movie_DAO.getMovieById(req.params.movie_id);
   res.send(movie);
 };
+
+exports.Get_all_Movies=async (req,res,next)=>{
+  const movies=await Movie_DAO.get_all_movies();
+  res.send(movies);
+}

@@ -1,9 +1,9 @@
 const Show=require('../models/Shows');
 
-exports.addShow=async(movie, theater_id, date,time, screen,price,seats,grid)=>{
+exports.addShow=async(movie_id, theater_id, date,time, screen,price,seats,grid)=>{
 
    const show=await Show.create({
-         movie, theater_id, date,time, screen,price,seats,grid
+         movie_id, theater_id, date,time, screen,price,seats,grid
     });
     return show;
     

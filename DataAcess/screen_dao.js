@@ -15,7 +15,7 @@ exports.getscreen=async(theater_id,screen_num)=>{
 
 exports.getSeats = async (theater_id,screen_num) => {
     const theater=await Theater.findOne({
-        theater_id
+        theater_id:theater_id, 
     })
     for(let i=0;i<theater.screens.length;i++){
         if(theater.screens[i].screen_num == screen_num){

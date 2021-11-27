@@ -3,8 +3,6 @@ import { useState } from "react";
 import axios from "axios";
 
 
-
-
 const ResultCard = ({ movie }) => {
 
   const [error, setError] = useState("");

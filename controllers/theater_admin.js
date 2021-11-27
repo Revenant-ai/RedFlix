@@ -16,6 +16,7 @@ exports.get_show_movie= async (req, res) => {
     res.send(shows)
 }
 
+
 exports.Add_screen= async (req, res) => {
     const {theater_id,Screen_num,grid}=req.body;
     //const screen = await screen_DAO.addScreen(theater_id,Screen_num);
@@ -37,20 +38,23 @@ exports.Add_screen= async (req, res) => {
     res.send(screen)
 }
 
+
 exports.Get_screen= async (req, res) => {
     const {theater_id,screen_num}=req.body;
     const screens = await screen_DAO.getscreen(theater_id,screen_num);
-    console.log(screens)
+    console.log("flag")
 }
  async function Get_grid(theater_id,screen_num)  {
     const grid = await screen_DAO.getSeats(theater_id,screen_num);
     return grid
+    
 }
 
 exports.Add_show = async (req, res) => {
-    const { movie, theater_id, date,time, screen,price,seats} = req.body;
+    const {movie_id, theater_id, date,time, screen,price} = req.body;
+    const seats=0
     const grid=await Get_grid(theater_id,screen)
-    const show = await show_DAO.addShow(movie, theater_id, date,time, screen,price,seats,grid)
+    const show = await show_DAO.addShow(movie_id, theater_id, date,time, screen,price,seats,grid)
     res.send(show)
 }
 
@@ -59,3 +63,5 @@ exports.Get_show=async (req, res) => {
     const show = await show_DAO.getShow_by_id(show_id);
     res.send(show)
 }
+
+

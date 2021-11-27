@@ -30,7 +30,7 @@ const RegisterScreen = ({ history }) => {
 
       localStorage.setItem("authToken", data.token);
 
-      window.location.href = "/";
+      window.location.href = "/theater-dashboard";
     } catch (error) {
       setError(error.response.data.error);
       setTimeout(() => {
