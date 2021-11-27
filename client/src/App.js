@@ -1,4 +1,4 @@
-import { BrowserRouter as Router,Routes,Route} from 'react-router-dom'
+import { BrowserRouter as Router,Routes,Route, BrowserRouter} from 'react-router-dom'
 
 
 //import PrivateRoute from './components/PrivateRoute'
@@ -18,6 +18,10 @@ import Client_Home from './screens/Client/Client_Home'
 import Manage_shows from './screens/Theater_Admin/manage_shows'
 import MovieDetails from './screens/Client/MovieDetails'
 import Manage_screen from './screens/Theater_Admin/manage_screen'
+import ShowsByMovie from './screens/Client/ShowsByMovie'
+
+
+
 
 const App=()=>{
   return (
@@ -36,6 +40,7 @@ const App=()=>{
             <Route exact path="/theater-show" element={<Manage_shows/>}/>
             <Route excat path="/theater-screen" element={<Manage_screen/>}/>
             <Route exact path="/movie-detail/:movie_id" element={<MovieDetails/>}/>
+            <Route exact path="/booking" element={<ShowsByMovie/>}/>
            </Routes>
          </div>
      </Router>

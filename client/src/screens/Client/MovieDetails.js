@@ -4,7 +4,14 @@ import axios from "axios";
 import Crewbox from "../../components/Crewbox";
 import Header from "../../components/Header";
 import Poster from "../../components/Poster";
+import ProgressBar from "@badrap/bar-of-progress"
 
+const progress = new ProgressBar({
+  size:4,
+  color:"#FE595E",
+  className:"z-50",
+  delay:100,
+});
 function MovieDetails() {
 
   const {movie_id} = useParams();
@@ -16,11 +23,13 @@ function MovieDetails() {
     .then(res => {
       setMovieDetails(res.data);
       setLoading(false);
+      progress.finish()
     })
   },[]);
 
   if (isLoading) {
-    return <div className="App">Loading...</div>;
+    progress.start();
+    return <div></div>
   }
 
   return (

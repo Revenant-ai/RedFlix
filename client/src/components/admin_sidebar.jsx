@@ -3,6 +3,7 @@ import Manage_screen from '../screens/Theater_Admin/manage_screen'
 import Manage_shows from '../screens/Theater_Admin/manage_shows'
 
 const Admin_sidebar = ({changeDisplay}) => {
+    
     return (
         <div class="flex flex-col left-0 w-14 hover:w-64 md:w-64 bg-black dark:bg-gray-900 h-100 text-white transition-all duration-300 border-none sidebar">
         <div class="border-2 border-red-600 overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow">

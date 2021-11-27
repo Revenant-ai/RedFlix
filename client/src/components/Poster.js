@@ -8,8 +8,8 @@ function Poster({title, runtime, genres, status, backdrop, release}) {
         <div className="p-10 md:w-2/5">
           {/*detials*/}
             <h1 className="subpixel-antialiased text-white text-3xl md:text-5xl font-bold mb-2">{title}</h1>
-            <h4 className="text-white text-md md:text-xl font-semibold mb-2">{runtime}</h4>
-            <h4 className="text-white text-md md:text-xl font-semibold mb-2">{release}</h4>
+            <h4 className="text-white text-md md:text-xl font-semibold mb-2">{(parseInt(runtime/60))+" Hrs "+(runtime%60)+" Mins"}</h4>
+            <h4 className="text-white text-md md:text-xl font-semibold mb-2">{new Date(release).toDateString().slice(4)}</h4>
             <section className="flex flex-wrap mb-2">
             {
               formats.map((item)=>(

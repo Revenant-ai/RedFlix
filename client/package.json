@@ -4,6 +4,7 @@
   "proxy": "http://127.0.0.1:5000",
   "private": true,
   "dependencies": {
+    "@badrap/bar-of-progress": "^0.1.2",
     "@craco/craco": "^6.4.0",
     "@headlessui/react": "^1.4.2",
     "@heroicons/react": "^1.0.5",
@@ -26,6 +27,7 @@
     "react-hook-form": "^7.19.5",
     "react-multi-carousel": "^2.6.5",
     "react-router-dom": "^6.0.2",
+    "react-router-loading": "^0.4.0",
     "react-scripts": "4.0.3",
     "tailwind-scrollbar-hide": "^1.1.5",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
