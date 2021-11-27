@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const ShowSchema = new mongoose.Schema({
-    movie:{
-        type:String,
+    movie_id:{
+        type:Number,
         required:[true,"provide a movie"],
     },
     theater_id:{
@@ -27,7 +27,9 @@ const ShowSchema = new mongoose.Schema({
     },
     grid:{
         type:Array
+    },
+    seats:{
+        type:Number,
     }
-    
 })
 module.exports = mongoose.model('Show',ShowSchema);

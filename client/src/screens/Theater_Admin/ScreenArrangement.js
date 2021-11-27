@@ -107,7 +107,7 @@ function ScreenArrangement() {
                 }
                </table>
             </div>
-                <button onClick={Submit_handler} className="rounded-sm bg-red-600 p-1 mt-2">Store ME!!!!!!</button>     
+            <button className="rounded-sm bg-green-600 p-1 mt-2" onClick={Submit_handler}>ADD ME!!!</button>
         </div>
     )
 }

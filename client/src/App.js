@@ -1,7 +1,7 @@
 import { BrowserRouter as Router,Routes,Route} from 'react-router-dom'
 
 
-//import PrivateRoute from './components/PrivateRoute'
+import PrivateRoute from './components/Routing/PrivateRoute'
 
 //screens
 
@@ -31,7 +31,12 @@ const App=()=>{
              <Route exact path="/" element={<Client_Home/>}/>
             <Route exact path="/passwordreset/:res_token" element={<ResetPasswordScreen/>}/>
             <Route exact path="/admin-dashboard" element={<Sys_Admin_Home/>}/>
-            <Route exact path="/theater-dashboard" element={<TheaterAdminDashboard/>}/>
+            
+            <Route exact path="/theater-dashboard" element={<PrivateRoute/>} >
+                <Route exact path="/theater-dashboard" element={<TheaterAdminDashboard/>}/>
+              </Route>
+            
+           
             <Route exact path="/theater-screenArrangement" element={<ScreenArrangement/>}/>
             <Route exact path="/theater-show" element={<Manage_shows/>}/>
             <Route excat path="/theater-screen" element={<Manage_screen/>}/>

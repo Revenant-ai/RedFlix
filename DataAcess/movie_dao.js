@@ -39,3 +39,8 @@ const Movie=require("../models/Movie")
         console.log(movie)
         return movie[0];
     }
+
+    exports.get_all_movies=async()=>{
+        const movies=await Movie.find({})
+        return movies
+    }

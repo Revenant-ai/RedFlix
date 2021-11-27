@@ -12,10 +12,6 @@ const Client_Home = () => {
   const curr = axios.get("/api/home/curr");
   const listRef = useRef();
   
-
-  
-
-
   useEffect(async () => {
     axios.all([upc, curr]).then(
       axios.spread((...res) => {

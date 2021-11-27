@@ -3,6 +3,7 @@ const User_DAO=require('../DataAcess/auth_dao')
 const User = require('../models/user')
 const ErrorResponse = require("../utils/errorResponse")
 const sendEmail = require("../utils/sendEmail")
+const jwt=require('jsonwebtoken')
 
 
 exports.register = async(req,res,next) => {
@@ -117,4 +118,32 @@ exports.resetpassword = async(req,res,next) => {
 const sendToken = (user,statusCode,res) => {
     const token = user.getSignedJwtToken()
     res.status(statusCode).json({sucess:true,token})
+}
+
+exports.getCurrentUser = async(req,res,next) => {
+    let token;
+    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
+        //Bearer token
+        token=req.headers.authorization.split(' ')[1]
+    }
+
+    if(!token){
+        return next(new ErrorResponse(401,'Not authorized to access this route'))
+    }
+    try{
+        const decoded=jwt.verify(token,process.env.JWT_SECRET)
+
+        const user=req.user=await User.findById(decoded.id)
+
+        if(!user){
+            return next(new ErrorResponse(404,'Uanuthorised'))
+        }
+
+        req.user=user
+        res.send(user)
+        next()
+    }
+    catch(err){
+        return next(new ErrorResponse('Not authorized to access this',401))
+    }
 }
