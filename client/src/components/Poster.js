@@ -1,7 +1,7 @@
 
 function Poster({title, runtime, genres, status, backdrop, release}) {
   const formats=["2D","3D","4D"];
-  const button_state=(status==="released")?"":"disable:opacity-50"
+  const button_state=(status==="released")?"bg-red-600 hover:bg-black text-black hover:text-red-600":"bg-black text-red-600 disable:opacity-50 cursor-default"
   const button_text=(status==="released")?"Book Tickets":"Coming soon"
   return (
     <div className="flex flex-col md:flex-row justify-evenly bg-black rounded-xl shadow-lg m-2 p-2 w-90">
@@ -28,7 +28,7 @@ function Poster({title, runtime, genres, status, backdrop, release}) {
               ))
             }
             </section>
-            <button className={`subpixel-antialiased hover:bg-red-600 active:scale-90 border-red-600 text-red-600 hover:text-black border text-lg font-semibold md:text-2xl px-3 py-1 rounded-md my-2 transition tranform ease-in-out ${button_state}`}>{button_text}</button>
+            <button className={`subpixel-antialiased border border-red-600 text-lg font-semibold md:text-2xl px-3 py-1 rounded-md my-2 transition tranform ease-in-out ${button_state}`}>{button_text}</button>
         </div>
         {/*backdrop*/}
         <div className="md:w-3/5 h-auto bg-cover bg-center " style={{backgroundImage:`url(${backdrop})`, boxShadow:'0 0 10px 10px black inset'}}>

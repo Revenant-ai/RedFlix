@@ -45,7 +45,7 @@ const App=()=>{
             <Route exact path="/theater-show" element={<Manage_shows/>}/>
             <Route excat path="/theater-screen" element={<Manage_screen/>}/>
             <Route exact path="/movie-detail/:movie_id" element={<MovieDetails/>}/>
-            <Route exact path="/booking" element={<ShowsByMovie/>}/>
+            <Route exact path="/shows/:movie_id" element={<ShowsByMovie/>}/>
            </Routes>
          </div>
      </Router>

@@ -1,14 +1,39 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
 import Header from "../../components/Header";
+import TheaterShows from "../../components/TheaterShows"
+import ProgressBar from "@badrap/bar-of-progress"
+
+const progress = new ProgressBar({
+  size:4,
+  color:"#FE595E",
+  className:"z-50",
+  delay:100,
+});
 
 function ShowsByMovie() {
-  const title = "Eternals";
-  const genres = [
-    { id: 1, name: "Action" },
-    { id: 2, name: "Fantasy" },
-    { id: 3, name: "Sci-Fi" },
-  ];
-  const runtime = 90;
-  const release = "2009-05-26";
+  const {movie_id} = useParams();
+  const [theater_shows,setTheaterShows]=useState({})
+  const [isLoading, setLoading] = useState(true);
+  useEffect(() => {
+    axios.get(`/api/home/shows/movie/${movie_id}`)
+    .then(res => {
+      setTheaterShows(res.data);
+      setLoading(false);
+      progress.finish()
+    })
+  },[]);
+
+  if (isLoading) {
+    progress.start();
+    return <div></div>
+  }
+
+  const title = theater_shows.movie.title;
+  const genres = theater_shows.movie.genres;
+  const runtime = theater_shows.movie.runtime;
+  const release = theater_shows.movie.year;
   const formats = ["2D", "3D"];
   return (
     <div className="bg-black min-h-screen">
@@ -65,6 +90,13 @@ function ShowsByMovie() {
           <div className="text-white self-end mb-2 inline-flex items-center space-x-2">
             <div className="bg-green-600 rounded-full w-3 h-3">&nbsp;</div><p>Available</p> <div className="bg-yellow-600 rounded-full w-3 h-3">&nbsp;</div><p>Fast Filling</p>
           </div>
+
+          {/*cinemas*/}
+           { 
+           theater_shows.theaters.map(item=>(
+                <TheaterShows key={item._id} shows={item.shows} theater_name={item.theater_name}/>
+              ))
+            }
           {/*cinema 1*/}
           <div className="flex flex-col sm:flex-row px-2 py-4 border-red-600 border-2 rounded-md bg-black text-white mb-2">
             <div className="w-1/4 pl-4 text-lg mb-2 sm:mb-0 font-medium">
