@@ -11,25 +11,24 @@ const progress = new ProgressBar({
   className:"z-50",
   delay:100,
 });
+function ShowsByMovie({movie_id,changeMainDiv}) {
 
-function ShowsByMovie() {
-  const {movie_id} = useParams();
-  const [theater_shows,setTheaterShows]=useState({})
+  //const {movie_id} = useParams();
+  const [theater_shows,setTheaterShows]=useState({})  
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
     axios.get(`/api/home/shows/movie/${movie_id}`)
     .then(res => {
-      setTheaterShows(res.data);
+      setTheaterShows(res.data)
       setLoading(false);
-      progress.finish()
+    progress.finish();
     })
   },[]);
 
-  if (isLoading) {
+  if(isLoading){
     progress.start();
     return <div></div>
   }
-
   const title = theater_shows.movie.title;
   const genres = theater_shows.movie.genres;
   const runtime = theater_shows.movie.runtime;
@@ -94,36 +93,10 @@ function ShowsByMovie() {
           {/*cinemas*/}
            { 
            theater_shows.theaters.map(item=>(
-                <TheaterShows key={item._id} shows={item.shows} theater_name={item.theater_name}/>
+                <TheaterShows key={item._id} shows={item.shows} theater_name={item.theater_name} movie_name={title} changeMainDiv={changeMainDiv}/>
               ))
             }
-          {/*cinema 1*/}
-          <div className="flex flex-col sm:flex-row px-2 py-4 border-red-600 border-2 rounded-md bg-black text-white mb-2">
-            <div className="w-1/4 pl-4 text-lg mb-2 sm:mb-0 font-medium">
-              <p>cinema 1</p>
-            </div>
-            <div className="flex flex-wrap">
-                <div className="px-4 py-2 border-2 border-green-600 rounded-md text-base mx-2  mb-2 sm:mb-0  ">10:00</div>
-                <div className="px-4 py-2 border-2 border-green-600 rounded-md text-base mx-2  mb-2 sm:mb-0 ">15:00</div>
-                <div className="px-4 py-2 border-2 border-green-600 rounded-md text-base mx-2 mb-2 sm:mb-0 ">20:00</div>
-                <div className="px-4 py-2 border-2 border-yellow-600 rounded-md text-base mx-2 mb-2 sm:mb-0 ">21:00</div>
-                <div className="px-4 py-2 border-2 border-green-600 rounded-md text-base mx-2 mb-2 sm:mb-0 ">22:00</div>
-            </div>
-          </div>
-
-          {/*cinema 2*/}
-          <div className="flex flex-col sm:flex-row px-2 py-4 border-red-600 border-2 rounded-md bg-black text-white mb-2">
-            <div className="w-1/4 pl-4 text-lg font-medium mb-2 sm:mb-0 ">
-              <p>cinema 1</p>
-            </div>
-            <div className="flex flex-wrap">
-                <div className="px-4 py-2 border-2 border-green-600 rounded-md text-base mx-2 mb-2 sm:mb-0 ">10:00</div>
-                <div className="px-4 py-2 border-2 border-yellow-600 rounded-md text-base mx-2 mb-2 sm:mb-0 ">15:00</div>
-                <div className="px-4 py-2 border-2 border-green-600 rounded-md text-base mx-2 mb-2 sm:mb-0 ">20:00</div>
-                <div className="px-4 py-2 border-2 border-green-600 rounded-md text-base mx-2 mb-2 sm:mb-0 ">21:00</div>
-                <div className="px-4 py-2 border-2 border-green-600 rounded-md text-base mx-2 mb-2 sm:mb-0 ">22:00</div>
-            </div>
-          </div>
+          
 
         </section>
       </div>
