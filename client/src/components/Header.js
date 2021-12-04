@@ -1,20 +1,41 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect,useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import logo_small from "./images/redflix-logo-small.png"
 import logo from "./images/logo.png"
+import axios from 'axios'
+
 const navigation = [
   { name: 'Dashboard', href: '#', current: true },
   { name: 'Team', href: '#', current: false },
   { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
+  { name: 'Login', href: '',current: false },
 ]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-function Header() {
+
+
+function Header({Client}) {
+  const [photo,setPhoto] = useState('')
+
+
+  const login_handler =() => {
+      window.open('http://localhost:5000/api/auth/google', '_self') 
+  }
+  console.log(Client)
+  useEffect(() => {
+    if(Client === "no user"){
+      setPhoto('https://media.istockphoto.com/vectors/person-gray-photo-placeholder-man-vector-id1202490454?k=20&m=1202490454&s=612x612&w=0&h=G-CL9QvsuJbGV7QcchGsAPS3njcJ-hheqni9MS_A9-8=')
+
+    }
+    else{
+      setPhoto(Client._json.picture)
+  }
+},[Client])
+
   return (
     <Disclosure as="nav" className="bg-black shadow-2xl">
       {({ open }) => (
@@ -66,7 +87,8 @@ function Header() {
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button
                   type="button"
-                  className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                  className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                  onClick={login_handler}
                 >
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
@@ -79,7 +101,7 @@ function Header() {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src={photo}
                         alt=""
                       />
                     </Menu.Button>
@@ -97,7 +119,6 @@ function Header() {
                       <Menu.Item>
                         {({ active }) => (
                           <a
-                            href="."
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
                             Your Profile
@@ -111,16 +132,6 @@ function Header() {
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
                             Settings
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="."
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Sign out
                           </a>
                         )}
                       </Menu.Item>

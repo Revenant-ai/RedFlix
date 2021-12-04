@@ -23,7 +23,10 @@ import ShowsByMovie from './screens/Client/ShowsByMovie'
 
 
 
+
 const App=()=>{
+  
+
   return (
     <div>
       <Router>
@@ -32,15 +35,14 @@ const App=()=>{
              <Route exact path="/login" element={<LoginScreen/>}/>
              <Route exact path="/register" element={<RegisterScreen/>}/>
              <Route exact path="/forgot-password" element={<ForgotPasswordScreen/>}/>
-             <Route exact path="/" element={<Client_Home/>}/>
+             <Route exact path="/"  element={<Client_Home/>} />
             <Route exact path="/passwordreset/:res_token" element={<ResetPasswordScreen/>}/>
             <Route exact path="/admin-dashboard" element={<Sys_Admin_Home/>}/>
             
             <Route exact path="/theater-dashboard" element={<PrivateRoute/>} >
                 <Route exact path="/theater-dashboard" element={<TheaterAdminDashboard/>}/>
               </Route>
-            
-           
+                         
             <Route exact path="/theater-screenArrangement" element={<ScreenArrangement/>}/>
             <Route exact path="/theater-show" element={<Manage_shows/>}/>
             <Route excat path="/theater-screen" element={<Manage_screen/>}/>

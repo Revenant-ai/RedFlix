@@ -1,11 +1,12 @@
-import { ContactsTwoTone, SettingsInputAntennaTwoTone } from "@material-ui/icons";
-import { useRef, useState } from "react";
+import { useState,useEffect } from "react";
 import axios from "axios";
 
 function ScreenArrangement() {
     const [rowstate,setRow]=useState(0);
     const [colstate,setCol]=useState(0);
     const [grid,setGrid]=useState([]);
+    const [Screen_num,set_screen_num]=useState("")
+    const [theater_id,set_theater_id]=useState("")
 
     const Submit_handler=async (e)=>{
     const config = {
@@ -14,24 +15,39 @@ function ScreenArrangement() {
       },
     };
 
+
     try {
-      await axios.post(
+      axios.post(
         "/api/theat-admin/addscreen",
         {
-            theater_id:"ABAD01",
-            Screen_num:1,
+            theater_id:theater_id,
+            Screen_num:Screen_num,
             grid
-            
-
         },
         config
-      );
-
+      ).then((res)=>{
+          alert("Screen Added")
+        })
     } catch (error) {
         console.log(error);
     }   
     }
-
+    useEffect(() => {
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        };
+        try{
+            axios.get("/api/auth/getCurrentUser",config).then((res)=>{
+              set_theater_id(res.data._id);
+          })
+          }catch(error){
+            console.log(error);
+          }
+    
+    }, []);
     const initialiseStatusGrid = (rows,cols)=>{
         let statusGrid=[];
         for(let i=0;i<rows;i++){
@@ -90,6 +106,10 @@ function ScreenArrangement() {
     return (
         <div className="flex flex-col items-center">
             <div className="flex flex-col items-center">
+            <div>
+                <p> Screen Num: </p>
+                <input type="text" className="border border-2 border-red-600 rounded-md px-2" onChange={(e)=>{set_screen_num(e.target.value)}}></input>
+                </div>
                 <div>
                 <p> Row: </p>
                 <input type="numeric" className="border border-2 border-red-600 rounded-md px-2" onChange={(e)=>{setRow(e.target.value)}}></input>
@@ -98,7 +118,7 @@ function ScreenArrangement() {
                 <p> Columns: </p>
                 <input type="numeric" className="border border-2 border-red-600 rounded-md px-2" onChange={(e)=>{setCol(e.target.value)}}></input>
                 </div>
-                <button className="rounded-sm bg-red-600 p-1 mt-2" onClick={()=>{initialiseStatusGrid(rowstate,colstate); }}>Press ME!!!</button>
+                <button className="m-2 bg-black hover:bg-green-800 py-2 px-4 rounded text-white" onClick={()=>{initialiseStatusGrid(rowstate,colstate); }}>Genreate Screen</button>
             </div>
             <div className="mt-4">
                 <table>
@@ -107,7 +127,7 @@ function ScreenArrangement() {
                 }
                </table>
             </div>
-            <button className="rounded-sm bg-green-600 p-1 mt-2" onClick={Submit_handler}>ADD ME!!!</button>
+            <button className="m-2 bg-black hover:bg-green-800 py-2 px-4 rounded text-white" onClick={Submit_handler}>ADD Screen</button>
         </div>
     )
 }

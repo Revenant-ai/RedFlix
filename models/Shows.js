@@ -10,7 +10,7 @@ const ShowSchema = new mongoose.Schema({
         required:[true,"provide a theatre"],
     },
     date:{
-        type:String,
+        type:Date,
         required:[true,"provide a date"],
     },
     time:{

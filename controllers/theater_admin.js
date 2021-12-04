@@ -1,4 +1,5 @@
 const { default: axios } = require("axios");
+const theater_DAO = require("../DataAcess/theater_dao");
 const show_DAO = require("../DataAcess/show_dao");
 const screen_DAO = require("../DataAcess/screen_dao");
 
@@ -42,7 +43,7 @@ exports.Add_screen= async (req, res) => {
 exports.Get_screen= async (req, res) => {
     const {theater_id,screen_num}=req.body;
     const screens = await screen_DAO.getscreen(theater_id,screen_num);
-    console.log("flag")
+    res.send(screens)
 }
  async function Get_grid(theater_id,screen_num)  {
     const grid = await screen_DAO.getSeats(theater_id,screen_num);
@@ -62,6 +63,13 @@ exports.Get_show=async (req, res) => {
     const {show_id}=req.body;
     const show = await show_DAO.getShow_by_id(show_id);
     res.send(show)
+}
+exports.Get_theater_Details=async (req, res) => {
+    const theater_id=req.params.theaterid;
+    console.log(req.params)
+    const theater = await theater_DAO.gettheater(theater_id);
+    console.log(theater)
+    res.send(theater)
 }
 
 

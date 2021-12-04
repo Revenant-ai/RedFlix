@@ -6,9 +6,16 @@ exports.addtheater = async (theater_name,theater_city,theater_id,theater_address
         theater_address,
         theater_city,
         theater_id,
-        screens:null
 })
 return theater
+}
+
+exports.gettheater = async (thet) => {
+    const theater=await Theater.findOne({
+       
+            theater_id:thet
+        })
+    return theater
 }
 
 

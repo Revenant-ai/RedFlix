@@ -1,17 +1,17 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import axios from "axios";
 import "../../index.css";
 import logo from "../../components/images/logo.png";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-const RegisterScreen = ({ history }) => {
+const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
+  let Navigate = useNavigate()
   const registerHandler = async (e) => {
     e.preventDefault();
-
+    
     const config = {
       header: {
         "Content-Type": "application/json",
@@ -30,7 +30,7 @@ const RegisterScreen = ({ history }) => {
 
       localStorage.setItem("authToken", data.token);
 
-      window.location.href = "/theater-dashboard";
+      Navigate("/theater-dashboard");
     } catch (error) {
       setError(error.response.data.error);
       setTimeout(() => {
@@ -38,6 +38,12 @@ const RegisterScreen = ({ history }) => {
       }, 5000);
     }
   };
+  
+  useEffect(() => {
+    
+    if (localStorage.getItem("authToken")) {
+      Navigate("/theater-dashboard");}
+    }, []);
 
   return (
     <div class="w-full bg-black h-screen">

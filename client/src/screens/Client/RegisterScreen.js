@@ -11,6 +11,10 @@ const RegisterScreen = ({ history }) => {
   const [password,setPassword]=useState("")
   const [confirm_password,setConfirmPassword]=useState("")
   const [error,setError]=useState("")
+  const [theater_name,setTheater_name]=useState("")
+  const [theater_address,setTheaterAddress]=useState("")
+  const [theater_city,setTheaterCity]=useState("Ahmedabad")
+
 
   const registerHandler = async (e) => {
     e.preventDefault();
@@ -36,6 +40,9 @@ const RegisterScreen = ({ history }) => {
         {
           email,
           password,
+          theater_name,
+          theater_address,
+          theater_city, 
         },
         config
       );
@@ -75,10 +82,7 @@ const RegisterScreen = ({ history }) => {
 
           <div class="w-full bg-white lg:w-6/12 xl:w-5/12">
             <div class="flex flex-col items-start justify-start w-full h-full p-10 lg:p-16 xl:p-24">
-              <br />
-              <br />
-              <br />
-              <br />
+           
 
               <h4 class="w-full text-3xl font-bold">Signup</h4>
               <p class="text-lg text-gray-500">
@@ -135,6 +139,41 @@ const RegisterScreen = ({ history }) => {
                     onChange={(e)=>setConfirmPassword(e.target.value)}
                   />
                 </div>
+
+                <div class=" relative">
+                  <label for="required-email" class="text-gray-700">
+                    Theater Name
+                    <span class="text-red-500 required-dot">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="required-email"
+                    class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
+                    name="theater_name"
+                    placeholder="Enter the name of the theater"
+                    value={theater_name}
+                    onChange={(e)=>setTheater_name(e.target.value)}
+                  />
+                </div>
+
+
+                <div class=" relative">
+                  <label for="required-email" class="text-gray-700">
+                    Theater Address
+                    <span class="text-red-500 required-dot">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="required-email"
+                    class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
+                    name="theater_name"
+                    placeholder="Enter the Address of the theater"
+                    value={theater_address}
+                    onChange={(e)=>setTheaterAddress(e.target.value)}
+                  />
+                </div>
+
+
 
                 <div class="relative">
                   <button 

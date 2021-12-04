@@ -16,19 +16,15 @@ const customStyles = {
   },
 };
 
-
 const Manage_shows = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [screen_num, set_screen_num] = useState();
   const [date, set_date] = useState();
   const [time, set_time] = useState();
   const [movie_name, set_movie_name] = useState();
-  const[price,set_price]=useState();
-  const [movieList,set_movieList] = useState([]);
-  const[Theater_id,set_Theater_id]=useState();
-
-
-  
+  const [price, set_price] = useState();
+  const [movieList, set_movieList] = useState([]);
+  const [Theater_id, set_Theater_id] = useState();
 
   const SetShow = () => {
     const config = {
@@ -37,27 +33,28 @@ const Manage_shows = () => {
       },
     };
     try {
-      const { data } = axios.post(
-        `/api/theat-admin/addshow`,
-        {
-          movie_id: movie_name,
-          screen: screen_num,
-          theater_id:Theater_id,
-          date: date,
-          time:time,
-          price:price
-        },
-        config
-      ).then((res) => {
-        console.log(res);
-        alert("Show Added Successfully");
-        setIsOpen(false);
-      });
+      const { data } = axios
+        .post(
+          `/api/theat-admin/addshow`,
+          {
+            movie_id: movie_name,
+            screen: screen_num,
+            theater_id: Theater_id,
+            date: date,
+            time: time,
+            price: price,
+          },
+          config
+        )
+        .then((res) => {
+          console.log(res);
+          alert("Show Added Successfully");
+          setIsOpen(false);
+        });
     } catch (error) {
       console.log(error);
     }
-  }
- 
+  };
 
   useEffect(() => {
     const config = {
@@ -66,27 +63,24 @@ const Manage_shows = () => {
         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
       },
     };
-  
 
-    try{
-      axios.get("/api/auth/getCurrentUser",config).then((res)=>{
+    try {
+      axios.get("/api/auth/getCurrentUser", config).then((res) => {
         set_Theater_id(res.data._id);
-    })
-    }catch(error){
+      });
+    } catch (error) {
       console.log(error);
     }
-   axios.get("/api/home/all-movie")
-   .then(res => {
+    axios.get("/api/home/all-movie").then((res) => {
       console.log(res.data);
       set_movieList(res.data);
-    })
-  },[]);
- const menuChange= (e)=>{
+    });
+  }, []);
+  const menuChange = (e) => {
     set_movie_name(e.target.value);
-  }
+  };
 
   return (
-    
     <div>
       <button
         onClick={() => setIsOpen(true)}
@@ -107,14 +101,13 @@ const Manage_shows = () => {
                     Screen Num
                   </label>
                   <input
-                  onChange={(e) => set_screen_num(e.target.value)}
+                    onChange={(e) => set_screen_num(e.target.value)}
                     class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                     id="grid-first-name"
                     type="text"
                     placeholder="Enter Screen Number"
                   />
                 </div>
-
 
                 <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                   <label
@@ -128,10 +121,12 @@ const Manage_shows = () => {
                       class="block appearance-none w-full bg-gray-200 border border-red-600 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-red-600"
                       id="grid-state"
                       onChange={menuChange}
-                      >
-                        <option selected="selected">Select Movie</option>
-                      {movieList.map(movie => (
-                        <option class="text-xs" value={movie.id} key={movie.id}>{movie.title}</option>
+                    >
+                      <option selected="selected">Select Movie</option>
+                      {movieList.map((movie) => (
+                        <option class="text-xs" value={movie.id} key={movie.id}>
+                          {movie.title}
+                        </option>
                       ))}
                     </select>
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -145,9 +140,6 @@ const Manage_shows = () => {
                     </div>
                   </div>
                 </div>
-
-
-                
               </div>
               <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full px-3">
@@ -158,7 +150,7 @@ const Manage_shows = () => {
                     Date
                   </label>
                   <input
-                  onChange={(e) => set_date(e.target.value)}
+                    onChange={(e) => set_date(e.target.value)}
                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     type="date"
                     placeholder="Enter date"
@@ -175,7 +167,7 @@ const Manage_shows = () => {
                     Price
                   </label>
                   <input
-                  onChange={(e) => set_price(e.target.value)}
+                    onChange={(e) => set_price(e.target.value)}
                     class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                     id="grid-first-name"
                     type="text"
@@ -184,14 +176,14 @@ const Manage_shows = () => {
                 </div>
                 <div class="w-full md:w-1/2 px-3">
                   <label
-                  onChange={(e) => set_date(e.target.value)}
+                    onChange={(e) => set_date(e.target.value)}
                     class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                     for="grid-last-name"
                   >
                     Time
                   </label>
                   <input
-                  onChange={(e) => set_time(e.target.value)}
+                    onChange={(e) => set_time(e.target.value)}
                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     type="time"
                     placeholder="Doe"
@@ -210,7 +202,10 @@ const Manage_shows = () => {
                 </button>
               </div>
               <div class=" px-3 mb-6 md:mb-0">
-                <button onClick={SetShow} class="bg-green-600 hover:bg-green-800 py-2 px-6 rounded text-white">
+                <button
+                  onClick={SetShow}
+                  class="bg-green-600 hover:bg-green-800 py-2 px-6 rounded text-white"
+                >
                   Add
                 </button>
               </div>

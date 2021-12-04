@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Admin_sidebar from "../../components/admin_sidebar"
 import Admin_header from '../../components/admin_header'
 import Manage_screen from './manage_screen'
+import { useNavigate } from "react-router-dom";
 
 const TheaterAdminDashboard = () => {
     const [mainDiv,setMainDiv]=useState(<Manage_screen/>)

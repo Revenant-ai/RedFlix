@@ -30,3 +30,4 @@ exports.getSeats = async (theater_id,screen_num) => {
         return theater.screens[i].grid
     }
 }
+
