@@ -36,7 +36,7 @@ app.use('/api/sys',require('./routes/system_admin'))
 app.use('/api/private',require('./routes/private'))
 app.use('/api/theat-admin',require('./routes/theater_admin'))
 app.use('/api/home',require('./routes/client'))
-app.use('/api/client',require('./routes/client'))
+
 
 
 //error handler should be the last piece of middleware append before it
