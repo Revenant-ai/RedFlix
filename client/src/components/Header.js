@@ -3,13 +3,12 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import logo_small from "./images/redflix-logo-small.png"
 import logo from "./images/logo.png"
-import axios from 'axios'
+import "../Stylesheets/header.css"
 
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Login', href: '',current: false },
+  { name: 'Home', href: '/', current: true },
+  { name: 'Movies', href: '#', current: false },
+  { name: 'Cinemas', href: '#', current: false },
 ]
 
 function classNames(...classes) {
@@ -20,11 +19,17 @@ function classNames(...classes) {
 
 function Header({Client}) {
   const [photo,setPhoto] = useState('')
+  const [isScrolled, setIsScrolled] = useState(false);
 
 
   const login_handler =() => {
       window.open('http://localhost:5000/api/auth/google', '_self') 
   }
+
+  const logout_handler =() => {
+      window.open('http://localhost:5000/api/auth/logout', '_self') 
+  }
+
   console.log(Client)
   useEffect(() => {
     if(Client === "no user"){
@@ -36,8 +41,14 @@ function Header({Client}) {
   }
 },[Client])
 
+
+window.onscroll = () => {
+  setIsScrolled(window.pageYOffset === 0 ? false : true);
+  return () => (window.onscroll = null);
+};
   return (
-    <Disclosure as="nav" className="bg-black shadow-2xl">
+    <div className={isScrolled ? "scrolled" : "navigation-bar"}>
+          <Disclosure as="nav">
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -81,18 +92,31 @@ function Header({Client}) {
                         {item.name}
                       </a>
                     ))}
+                    
                   </div>
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button
+                
+                {Client === "no user" ? (
+                  <button
                   type="button"
-                  className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                  className="bg-red-600 p-2 border-2  rounded-full text-white hover:text-red-600 hover:bg-black hover:border-red-600 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                   onClick={login_handler}
                 >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
+                  Login
+                  <span className="sr-only">Login</span>
                 </button>
+                ) : (
+                  <button
+                  type="button"
+                  className="bg-red-600 p-2 border-2  rounded-full text-white hover:text-red-600 hover:bg-black hover:border-red-600 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                  onClick={logout_handler}
+                >
+                  Logout
+                  <span className="sr-only">Login</span>
+                </button>
+                )}
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="ml-3 relative">
@@ -163,6 +187,8 @@ function Header({Client}) {
         </>
       )}
     </Disclosure>
+
+    </div>
   )
 }
 

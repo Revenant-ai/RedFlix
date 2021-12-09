@@ -17,6 +17,7 @@ function MovieDetails() {
   const {movie_id} = useParams();
   const [movie_details,setMovieDetails] = useState({});
   const [isLoading, setLoading] = useState(true);
+  const [Client,setClient]=useState("no user")
   
    useEffect(() => {
     axios.get(`/api/home/movie/${movie_id}`)
@@ -24,6 +25,10 @@ function MovieDetails() {
       setMovieDetails(res.data);
       setLoading(false);
       progress.finish()
+      axios.get("/api/auth/login/success").then(res=>{
+        setClient(res.data.user)
+        
+      }) 
     })
   },[]);
 
@@ -34,7 +39,8 @@ function MovieDetails() {
 
   return (
     <div>
-      <Header />
+      <Header Client={Client}/>
+     <div className="pt-20">
      {  <Poster title={movie_details.title} runtime={movie_details.runtime} genres={movie_details.genres} status={movie_details.status} backdrop={movie_details.backdrop} release={movie_details.year}/> }
       <div className="border rounded-xl border-red-600 shadow-lg mx-3 md:mx-14 my-8 p-5">
         <h1 className="subpixel-antialiased text-4xl font-semibold ">
@@ -52,6 +58,7 @@ function MovieDetails() {
         <p className="subpixel-antialiased text-4xl font-semibold">Crew</p>
         <Crewbox crew={movie_details.cast} />
       </div> 
+     </div>
     </div>
   );
 }

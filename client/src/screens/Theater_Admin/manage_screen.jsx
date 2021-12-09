@@ -31,6 +31,7 @@ const Manage_screen = () => {
       try {
         const {data}=await axios.get("/api/auth/getCurrentUser", config)
         const theat_id=(data._id)
+        console.log(theat_id)
           axios.get(`/api/theat-admin/gettheater/${theat_id}`).then((res) => {
             setScreens(res.data.screens);
             console.log(res.data)

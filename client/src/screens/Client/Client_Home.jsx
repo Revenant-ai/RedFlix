@@ -3,6 +3,8 @@ import axios from "axios";
 import List from "../../components/List"
 import Header from "../../components/Header"
 import ProgressBar from "@badrap/bar-of-progress"
+import Featured from "../../components/Featured";
+import "../../Stylesheets/home.css";
 
 
 const progress = new ProgressBar({
@@ -19,7 +21,6 @@ const Client_Home = () => {
 
   const upc = axios.get("/api/home/upc");
   const curr = axios.get("/api/home/curr");
-  const client_req=axios.get("/api/auth/login/success")
   const [Client,setClient]=useState("no user")
   const [isLoading, setLoading] = useState(true);
   
@@ -32,9 +33,7 @@ const Client_Home = () => {
       setLoading(false),
       axios.get("/api/auth/login/success").then(res=>{
         setClient(res.data.user)
-        
-      })
-          
+      })    
       );
   }, [])
 
@@ -47,8 +46,12 @@ const Client_Home = () => {
     }
     return (
       
-      <div class="bg-black h-full">
+      <div class="h-full flex flex-col" className="home-div">
          <Header Client={Client}/> 
+         <div className="h-1/4">
+            <Featured Banner={nowplaying} className="object-cover"/>    
+         </div>
+         
         <h1 class="text-red-600 text-5xl my-5 mx-2 font-serif">Currently Playing</h1>
         <List list={nowplaying}/>
         <br/>

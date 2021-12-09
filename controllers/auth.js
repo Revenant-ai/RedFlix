@@ -6,6 +6,7 @@ const sendEmail = require("../utils/sendEmail");
 const jwt = require("jsonwebtoken");
 const Theater_DAO = require("../DataAcess/theater_dao");
 const passport = require("passport");
+const User=require("../models/Theater_Admin")
 
 
 exports.register = async (req, res, next) => {
@@ -133,6 +134,7 @@ exports.getCurrentUser = async (req, res, next) => {
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
+    
   ) {
     //Bearer token
     token = req.headers.authorization.split(" ")[1];
@@ -142,9 +144,12 @@ exports.getCurrentUser = async (req, res, next) => {
     return next(new ErrorResponse(401, "Not authorized to access this route"));
   }
   try {
+    
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+    
     const user = (req.user = await User.findById(decoded.id));
+    console.log(user);
 
     if (!user) {
       return next(new ErrorResponse(404, "Uanuthorised"));
@@ -154,7 +159,7 @@ exports.getCurrentUser = async (req, res, next) => {
     res.send(user);
     next();
   } catch (err) {
-    return next(new ErrorResponse("Not authorized to access this", 401));
+    return next(new ErrorResponse(401,"Not authorized to access this"));
   }
 };
 

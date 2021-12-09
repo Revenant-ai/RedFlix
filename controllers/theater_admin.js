@@ -53,9 +53,13 @@ exports.Get_screen= async (req, res) => {
 
 exports.Add_show = async (req, res) => {
     const {movie_id, theater_id, date,time, screen,price} = req.body;
+    const d=new Date(date);
+    d.setHours(time.split(":")[0]);
+    console.log(d)
+    d.setMinutes(time.split(":")[1]);
     const seats=0
     const grid=await Get_grid(theater_id,screen)
-    const show = await show_DAO.addShow(movie_id, theater_id, date,time, screen,price,seats,grid)
+    const show = await show_DAO.addShow(movie_id, theater_id, d,time, screen,price,seats,grid)
     res.send(show)
 }
 

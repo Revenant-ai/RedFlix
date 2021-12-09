@@ -36,7 +36,6 @@ function ShowsByMovie({movie_id,changeMainDiv}) {
   const formats = ["2D", "3D"];
   return (
     <div className="bg-black min-h-screen">
-      <Header />
       <div className="bg-black pl-6 py-2">
           {/*title*/}
         <h1 className="subpixel-antialiased text-white text-3xl md:text-5xl font-bold mb-2">

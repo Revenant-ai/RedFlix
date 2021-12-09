@@ -1,0 +1,21 @@
+.navigation-bar{
+    width: 100%;
+    color: white;
+    font-size: 14px;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    background: linear-gradient(to top, transparent 0%, rgb(0, 0, 0, 0.3) 50%);
+    transition: all 1s ease; 
+}
+.scrolled{
+    background-color: black;
+    width: 100%;
+    color: white;
+    font-size: 14px;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    transition: all 1s ease; 
+  }
+

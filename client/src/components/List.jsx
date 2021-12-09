@@ -39,7 +39,7 @@ const List = ({list}) => {
 
 
   return (
-    <div class="justify-items-center relative overflow-hidden">
+    <div class="p-10 h-auto w-100 justify-items-center relative overflow-hidden">
       <div
         onClick={() => handleClick("left")}
         style={{ display: !isMoved && "none" }}
