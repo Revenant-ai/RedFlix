@@ -38,24 +38,24 @@ function MovieDetails() {
   }
 
   return (
-    <div>
+    <div className="bg-black">
       <Header Client={Client}/>
-     <div className="pt-20">
+     <div>
      {  <Poster title={movie_details.title} runtime={movie_details.runtime} genres={movie_details.genres} status={movie_details.status} backdrop={movie_details.backdrop} release={movie_details.year}/> }
       <div className="border rounded-xl border-red-600 shadow-lg mx-3 md:mx-14 my-8 p-5">
-        <h1 className="subpixel-antialiased text-4xl font-semibold ">
+        <h1 className="subpixel-antialiased text-4xl font-semibold text-red-600">
           About the movie
         </h1>
-        <p className="mt-3 font-medium">
+        <p className="mt-3 font-medium text-white">
           {movie_details.description}
         </p>
       </div>
        <div className="mx-3 md:mx-14 my-5 p-5 border-t-2">
-        <p className="subpixel-antialiased text-4xl font-semibold">Cast</p>
+        <p className="subpixel-antialiased text-4xl font-semibold text-red-600">Cast</p>
         <Crewbox crew={movie_details.crew} />
       </div>
       <div className="mx-3 md:mx-14 my-5 p-5 border-t-2">
-        <p className="subpixel-antialiased text-4xl font-semibold">Crew</p>
+        <p className="subpixel-antialiased text-4xl font-semibold text-red-600">Crew</p>
         <Crewbox crew={movie_details.cast} />
       </div> 
      </div>
