@@ -1,8 +1,8 @@
 const Booking=require('../models/Booking');
 
-exports.createBooking=async (ticket_qty,amount, email,booking_id,show_id)=>{
+exports.createBooking=async (ticket_qty,seats,amount,booking_id,show_id)=>{
     const booking=await Booking.create({
-        booking_id, email,transaction_id:"", date:"", time:"", booking_status:"waiting",show_id,amount,ticket_qty
+        booking_id, email:"",transaction_id:"", date:"", time:"", booking_status:"waiting",show_id,amount,ticket_qty,seats
     });
     return booking;
 }

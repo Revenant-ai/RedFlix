@@ -4,7 +4,7 @@ const router = express.Router()
 const {Get_Upcoming_Movies,Get_current_movies,getMovieDetailsById,Get_all_Movies,getShows}=require("../controllers/movies")
 const {Create_booking}=require("../controllers/booking")
 const {payment}=require("../controllers/payment")
-const {getShowByID}=require("../controllers/Client")
+const {getShowByID,hold_seats}=require("../controllers/Client")
 
 
 router.route("/upc").get(Get_Upcoming_Movies)
@@ -15,5 +15,6 @@ router.route("/payment").post(payment)
 router.route("/all-movie").get(Get_all_Movies)
 router.route("/shows/movie/:movie_id").get(getShows)
 router.route("/show/:show_id").get(getShowByID)
+router.route("/hold").post(hold_seats)
 
 module.exports = router

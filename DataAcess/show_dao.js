@@ -1,3 +1,4 @@
+const { findByIdAndUpdate } = require('../models/Shows');
 const Show=require('../models/Shows');
 
 exports.addShow=async(movie_id, theater_id, date,time, screen,price,seats,grid)=>{
@@ -67,9 +68,22 @@ exports.getShow_by_id=async(id)=>{
 exports.holdSeats=async(show_id,seats)=>{
     for(let i=0;i<seats.length;i++){
         const id=seats[i]
-        let row=pasrseInt(id.split("-")[0]);
-        let col=pasrseInt(id.split("-")[1]);
-                  
-  }
+        let row=parseInt(id.split("-")[0])-1;
+        let col=parseInt(id.split("-")[1])-1;
+        console.log(row,col);
+        await Show.findByIdAndUpdate(show_id,{$set:{[`grid.${row}.${col}.isAvailable`]:false}});
+        
+      }
+      
 }
-
+exports.releaseSeats=async(show_id,seats)=>{
+  for(let i=0;i<seats.length;i++){
+      const id=seats[i]
+      let row=parseInt(id.split("-")[0])-1;
+      let col=parseInt(id.split("-")[1])-1;
+      console.log(row,col);
+      await Show.findByIdAndUpdate(show_id,{$set:{[`grid.${row}.${col}.isAvailable`]:true}});
+      
+    }
+    
+}

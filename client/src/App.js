@@ -21,7 +21,7 @@ import Manage_screen from './screens/Theater_Admin/manage_screen'
 import ShowsByMovie from './screens/Client/ShowsByMovie'
 import SeatSelection from './screens/Client/SeatSelection'
 import MainShowsByMovie from './screens/Client/MainShowsByMovie'
-
+import ConfirmTicket from './screens/Client/confirmation'
 
 
 
@@ -40,7 +40,7 @@ const App=()=>{
              <Route exact path="/"  element={<Client_Home/>} />
             <Route exact path="/passwordreset/:res_token" element={<ResetPasswordScreen/>}/>
             <Route exact path="/admin-dashboard" element={<Sys_Admin_Home/>}/>
-            
+
             <Route exact path="/theater-dashboard" element={<PrivateRoute/>} >
                 <Route exact path="/theater-dashboard" element={<TheaterAdminDashboard/>}/>
               </Route>
@@ -50,7 +50,7 @@ const App=()=>{
             <Route excat path="/theater-screen" element={<Manage_screen/>}/>
             <Route exact path="/movie-detail/:movie_id" element={<MovieDetails/>}/>
             <Route exact path="/shows/:movie_id" element={<MainShowsByMovie/>}/>
-
+            <Route exact path="/confirm" element={<ConfirmTicket/>}/>
             {/*temp route*/}
             {/*<Route exact path="/show/:show_id" element={<SeatSelection/>}/>*/}
            </Routes>

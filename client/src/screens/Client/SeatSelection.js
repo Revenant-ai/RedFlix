@@ -22,6 +22,23 @@ function SeatSelection({show,movie_name,theater_name}) {
         }
     }
 
+
+    const onBookClick=async ()=>{
+        const config = {
+            header: {
+              "Content-Type": "application/json",
+            },
+          };
+          
+        const {data}=await axios.post("/api/home/book", {
+            ticket_qty:tickets.length,
+            seats:tickets,
+            amount:tickets.length*show.price,
+            show_id:show_id,
+        },config);
+        console.log(data)
+    }
+
     const createRows = (i,totalCols)=>{
             const cols=[];
             let counter=1;
@@ -71,6 +88,9 @@ function SeatSelection({show,movie_name,theater_name}) {
                     createGrid().map(item=>item)
                 }
                </table>
+            </div>
+            <div>
+                <button onClick={onBookClick} className="bg-red-600 text-white px-4 py-2 rounded-md">Book</button>
             </div>
         </div>
     )
