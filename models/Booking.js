@@ -7,7 +7,7 @@ const BookingSchema = new mongoose.Schema({
         required: true
     }, email:{
         type: String,
-        required: true
+    
     },
     transaction_id:{
         type: String,

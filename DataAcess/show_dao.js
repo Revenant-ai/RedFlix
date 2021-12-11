@@ -19,7 +19,7 @@ exports.getShows_by_movie_id=async(movie)=>{
     const shows=await Show.aggregate([
         {
           '$match': {
-            'movie_id': 299537
+            'movie_id': parseInt(movie)
           }
         }, {
           '$sort': {
@@ -63,3 +63,13 @@ exports.getShow_by_id=async(id)=>{
     const show=await Show.findById(id)
     return show;
 }
+
+exports.holdSeats=async(show_id,seats)=>{
+    for(let i=0;i<seats.length;i++){
+        const id=seats[i]
+        let row=pasrseInt(id.split("-")[0]);
+        let col=pasrseInt(id.split("-")[1]);
+                  
+  }
+}
+

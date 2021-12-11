@@ -28,12 +28,13 @@ function SeatSelection({show,movie_name,theater_name}) {
             for(let j=0;j<totalCols;j++)
             {
                 let bg=grid[i][j].isSeat?(grid[i][j].isAvailable?"border border-green-600 text-red-600 hover:bg-green-600 hover:text-red-800 hover:border-red-600 cursor-pointer":"border border-gray-600 bg-gray-400 text-gray-800 opacity-30"):"text-black";
-                if(tickets.includes(grid[i][j].id)===true)
+                if(tickets.includes(i+"-"+j)===true)
                 {
                     bg="border bg-green-600 text-red-800 border-red-600 cursor-pointer"
                 }
                 const data=grid[i][j].isSeat?counter++:"--";
-                cols.push(<div onClick={(e)=>{changeSeatSelection(grid[i][j].id);}} className={`${bg} text-sm font-medium rounded-md m-1 px-2 py-1`} key={`${i}${j}`}>{data}</div>);
+                cols.push(<div onClick={(e)=>{if(grid[i][j].isSeat){changeSeatSelection(i+"-"+j)}
+                    }} className={`${bg} flex flex-col items-center justify-center text-sm font-medium rounded-md m-1 px-2 py-1 w-7 h-7`} key={`${i}${j}`}>{data}</div>);
             }
             return cols;
     }
