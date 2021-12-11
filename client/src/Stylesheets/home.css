@@ -5,3 +5,21 @@
     opacity: 0.5;
     
 }
+.Banner_fade{
+    height: 10.4rem;
+    background-image: linear-gradient(
+        0deg,
+        transparent,
+        rgba(0, 0, 0, 0.404),
+        #111
+    );
+}
+.black_sheet{
+   height: 100%;
+   background-image: linear-gradient(
+        180deg,
+        transparent,
+        rgba(0, 0, 0, 0.781),
+        #111
+    );
+}
