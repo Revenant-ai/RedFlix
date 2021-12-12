@@ -6,6 +6,7 @@ import { useParams } from "react-router";
 function SeatSelection({show,movie_name,theater_name}) {
     const show_id=show._id
     const [tickets,setTickets]=useState([])
+    const [warning,setWarning]=useState(" ")
     const grid=show.grid
 
 
@@ -13,10 +14,19 @@ function SeatSelection({show,movie_name,theater_name}) {
     {
         if(tickets.includes(id))
         {
+            if(tickets.length>=10)
+            {
+            setWarning("");
+            }
            const newTickets=tickets.filter((value)=>{return value!==id;});
            setTickets(newTickets);
         }
         else{
+            if(tickets.length>=10)
+            {
+            setWarning("Cannot select more than 10 tickets!!!");
+            return;
+            }
             const newTickets=[...tickets,id];
             setTickets(newTickets);
         }
@@ -79,18 +89,24 @@ function SeatSelection({show,movie_name,theater_name}) {
     }
 
     return (
-        <div className="bg-black min-h-screen">
-            <h1 className="text-xl text-white">{movie_name}</h1>
-            <h1 className="text-lg text-white">{theater_name}</h1>
-            <div className=" text-white">
+        <div className="flex flex-col bg-black min-h-screen">
+            <section className="flex justify-between items-end mt-2 py-2 px-5 mx-16 mb-5 mt-5 border border-red-600 rounded-lg">
+            <section>
+            <h1 className="text-2xl sm:text-4xl text-white mb-2">{movie_name}</h1>
+            <h1 className="text-lg sm:text-xl text-white">{theater_name}</h1>
+            </section>
+            <h4 className="text-sm sm:text-lg text-white">Total tickets: {tickets.length}</h4>
+            </section>
+            <p className="text-md text-red-700 place-self-center mb-2 h-6">{warning}</p>
+            <div className=" text-white place-self-center mb-2">
                 <table>
                 {
                     createGrid().map(item=>item)
                 }
                </table>
             </div>
-            <div>
-                <button onClick={onBookClick} className="bg-red-600 text-white px-4 py-2 rounded-md">Book</button>
+            <div className="place-self-center">
+                <button onClick={onBookClick} className="bg-red-600 text-white px-4 py-2 rounded-md">Book, Total amount: {tickets.length*parseInt(show.price)}</button>
             </div>
         </div>
     )
