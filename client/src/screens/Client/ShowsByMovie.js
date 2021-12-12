@@ -14,8 +14,19 @@ const progress = new ProgressBar({
 function ShowsByMovie({movie_id,changeMainDiv}) {
 
   //const {movie_id} = useParams();
+  const today=new Date();
+  const tommorrow=new Date(today);
+  tommorrow.setDate(tommorrow.getDate()+1);
+  const dayaftertom=new Date(today);
+  dayaftertom.setDate(dayaftertom.getDate()+2)
+
+
+  //States
+  const [dateSelected,setDateSelected]=useState(today);
   const [theater_shows,setTheaterShows]=useState({})  
   const [isLoading, setLoading] = useState(true);
+
+
   useEffect(() => {
     axios.get(`/api/home/shows/movie/${movie_id}`)
     .then(res => {
@@ -77,10 +88,11 @@ function ShowsByMovie({movie_id,changeMainDiv}) {
       <div className="flex flex-col  w-full items-center mt-4 ">
 
           {/*dates*/}
+          
         <section className="subpixel-antialiased w-full bg-red-600 p-2 border-b-2 border-t-2 border-black">
-                <button className=" border-2 rounded-md mx-2 px-2 py-1 font-bold hover:text-white hover:bg-black">21 Today</button>
-                <button className=" border-2 rounded-md mx-2 px-2 py-1 font-bold hover:text-white hover:bg-black">22 Mon</button>
-                <button className=" border-2 rounded-md mx-2 px-2 py-1 font-bold hover:text-white hover:bg-black">21 Tue</button>
+                <button onClick={()=>{setDateSelected(today)}} className={`border-2 ${(dateSelected.getDate()===today.getDate()?"bg-black text-white":"")} rounded-md mx-2 px-2 py-1 font-bold hover:text-white hover:bg-black`}>{today.getDate()} Today</button>
+                <button onClick={()=>{setDateSelected(tommorrow)}} className={`border-2 ${(dateSelected.getDate()===tommorrow.getDate()?"bg-black text-white":"")} rounded-md mx-2 px-2 py-1 font-bold hover:text-white hover:bg-black`}>{tommorrow.getDate()} {tommorrow.toString().split(' ')[0]}</button>
+                <button onClick={()=>{setDateSelected(dayaftertom)}} className={`border-2 ${(dateSelected.getDate()===dayaftertom.getDate()?"bg-black text-white":"")} rounded-md mx-2 px-2 py-1 font-bold hover:text-white hover:bg-black`}>{dayaftertom.getDate()} {dayaftertom.toString().split(' ')[0]}</button>
         </section>
 
         {/*show details*/}
@@ -92,7 +104,7 @@ function ShowsByMovie({movie_id,changeMainDiv}) {
           {/*cinemas*/}
            { 
            theater_shows.theaters.map(item=>(
-                <TheaterShows key={item._id} shows={item.shows} theater_name={item.theater_name} movie_name={title} changeMainDiv={changeMainDiv}/>
+                <TheaterShows key={item._id} shows={item.shows} theater_name={item.theater_name} movie_name={title} changeMainDiv={changeMainDiv} dateSelected={dateSelected}/>
               ))
             }
           

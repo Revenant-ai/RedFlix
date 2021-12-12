@@ -57,6 +57,7 @@ function SeatSelection({show,movie_name,theater_name}) {
                 }
                 const data=grid[i][j].isSeat?counter++:"--";
                 cols.push(<div onClick={(e)=>{if(grid[i][j].isSeat){changeSeatSelection(i+"-"+j,grid[i][j].id)}
+
                     }} className={`${bg} flex flex-col items-center justify-center text-sm font-medium rounded-md m-1 px-2 py-1 w-7 h-7`} key={`${i}${j}`}>{data}</div>);
             }
             return cols;

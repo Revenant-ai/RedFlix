@@ -53,14 +53,19 @@ exports.Get_screen= async (req, res) => {
 
 exports.Add_show = async (req, res) => {
     const {movie_id, theater_id, date,time, screen,price} = req.body;
+    console.log(date);
     const d=new Date(date);
-    await movie_DAO.changeStatus(movie_id);
-    d.setHours(time.split(":")[0]);
-    console.log(d)
-    d.setMinutes(time.split(":")[1]);
+    const newdate=new Date();
+    console.log(d);
+    newdate.setUTCDate(d.getDate());
+    newdate.setUTCMonth(d.getMonth());
+    newdate.setUTCFullYear(d.getFullYear());
+    newdate.setUTCHours(parseInt(time.split(":")[0]));
+    newdate.setUTCMinutes(parseInt(time.split(":")[1]));
+    console.log(newdate)
     const seats=0
     const grid=await Get_grid(theater_id,screen)
-    const show = await show_DAO.addShow(movie_id, theater_id, d,time, screen,price,seats,grid)
+    const show = await show_DAO.addShow(movie_id, theater_id, newdate,time, screen,price,seats,grid)
     res.send(show)
 }
 
