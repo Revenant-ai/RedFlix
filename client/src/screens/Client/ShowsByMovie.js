@@ -34,6 +34,11 @@ function ShowsByMovie({movie_id,changeMainDiv}) {
   const runtime = theater_shows.movie.runtime;
   const release = theater_shows.movie.year;
   const formats = ["2D", "3D"];
+  const today=new Date();
+  const tommorrow=new Date(today);
+  tommorrow.setDate(tommorrow.getDate()+1);
+  const dayaftertom=new Date(today);
+  dayaftertom.setDate(dayaftertom.getDate()+2)
   return (
     <div className="bg-black min-h-screen">
       <div className="bg-black pl-6 py-2">
@@ -78,9 +83,9 @@ function ShowsByMovie({movie_id,changeMainDiv}) {
 
           {/*dates*/}
         <section className="subpixel-antialiased w-full bg-red-600 p-2 border-b-2 border-t-2 border-black">
-                <button className=" border-2 rounded-md mx-2 px-2 py-1 font-bold hover:text-white hover:bg-black">21 Today</button>
-                <button className=" border-2 rounded-md mx-2 px-2 py-1 font-bold hover:text-white hover:bg-black">22 Mon</button>
-                <button className=" border-2 rounded-md mx-2 px-2 py-1 font-bold hover:text-white hover:bg-black">21 Tue</button>
+                <button className=" border-2 rounded-md mx-2 px-2 py-1 font-bold hover:text-white hover:bg-black">{today.getDate()} Today</button>
+                <button className=" border-2 rounded-md mx-2 px-2 py-1 font-bold hover:text-white hover:bg-black">{tommorrow.getDate()} {tommorrow.toString().split(' ')[0]}</button>
+                <button className=" border-2 rounded-md mx-2 px-2 py-1 font-bold hover:text-white hover:bg-black">{dayaftertom.getDate()} {dayaftertom.toString().split(' ')[0]}</button>
         </section>
 
         {/*show details*/}

@@ -15,48 +15,74 @@ exports.getShows_by_theater_id=async(theater_id)=>{
     return shows;
 }
 
+function convertToUTC(date)
+{
+  const temp=new Date(date);
+  temp.setUTCDate(date.getDate());
+  temp.setUTCFullYear(date.getFullYear());
+  temp.setUTCMonth(date.getMonth());
+  temp.setUTCHours(date.getHours());
+  temp.setUTCMinutes(date.getMinutes());
+  temp.setUTCSeconds(date.getSeconds());
+  return temp;
+}
 //give only shows grouped by theaters (no movie info except movied id with every show)
 exports.getShows_by_movie_id=async(movie)=>{
+  let today=new Date();
+  let dayaftertom=new Date(today);
+  dayaftertom.setDate(dayaftertom.getDate()+3);
+  dayaftertom.setHours(0);
+  dayaftertom.setMinutes(0);
+  today=convertToUTC(today);
+  dayaftertom=convertToUTC(dayaftertom);
     const shows=await Show.aggregate([
-        {
-          '$match': {
-            'movie_id': parseInt(movie)
-          }
-        }, {
-          '$sort': {
-            'date': 1, 
-            'time': 1
-          }
-        }, {
-          '$lookup': {
-            'from': 'theaters', 
-            'localField': 'theater_id', 
-            'foreignField': 'theater_id', 
-            'as': 'theater_name'
-          }
-        }, {
-          '$set': {
-            'theater_name': {
-              '$arrayElemAt': [
-                '$theater_name.theater_name', 0
-              ]
+      {
+        '$match': {
+          '$and': [
+            {
+              'movie_id': parseInt(movie)
+            }, {
+              'date': {
+                '$gte': today, 
+                '$lte': dayaftertom
+              }
             }
-          }
-        }, {
-          '$group': {
-            '_id': '$theater_id', 
-            'theater_name': {
-              '$first': '$theater_name'
-            }, 
-            'movie': {
-              '$first': '$movie'
-            }, 
-            'shows': {
-              '$push': '$$ROOT'
-            }
+          ]
+        }
+      }, {
+        '$sort': {
+          'date': 1
+        }
+      }, {
+        '$lookup': {
+          'from': 'theaters', 
+          'localField': 'theater_id', 
+          'foreignField': 'theater_id', 
+          'as': 'theater_name'
+        }
+      }, {
+        '$set': {
+          'theater_name': {
+            '$arrayElemAt': [
+              '$theater_name.theater_name', 0
+            ]
           }
         }
-      ])
+      }, {
+        '$group': {
+          '_id': '$theater_id', 
+          'theater_name': {
+            '$first': '$theater_name'
+          }, 
+          'movie': {
+            '$first': '$movie'
+          }, 
+          'shows': {
+            '$push': '$$ROOT'
+          }
+        }
+      }
+    ])
     console.log(shows);
     return shows;
 }
