@@ -5,7 +5,13 @@ const BookingSchema = new mongoose.Schema({
     booking_id:{
         type: String,
         required: true
-    }, email:{
+    }, 
+    movie_title:{
+        type: String,
+        required: true
+    },
+    
+    email:{
         type: String,
     
     },

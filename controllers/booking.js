@@ -3,17 +3,16 @@ const booking_DAO=require('../DataAcess/booking_dao');
 const show_DAO=require('../DataAcess/show_dao');
 
 exports.Create_booking = async function(req, res, next) {
-    const {ticket_qty,seats,amount,show_id} = req.body;
+    const {movie_title,ticket_qty,seats,amount,show_id} = req.body;
     const booking_id=crypto.randomBytes(10).toString('hex');
     try{
-        const booking=await booking_DAO.createBooking(ticket_qty,seats,amount,booking_id,show_id);
+        const booking=await booking_DAO.createBooking(movie_title,ticket_qty,seats.id,date,time,amount,booking_id,show_id);
         console.log(booking);
-        show_DAO.holdSeats(show_id,seats);
+        show_DAO.holdSeats(show_id,seats.index);
         setTimeout(async function(){
            const booking=await booking_DAO.getBooking(booking_id)  
            if(booking.booking_status != "success"){
-               const seats=booking.seats;
-               show_DAO.releaseSeats(show_id,seats)
+               show_DAO.releaseSeats(show_id,seats.index)
                const del=await booking_DAO.deleteBooking(booking_id);
             }
         },1000*60*2)
@@ -27,4 +26,20 @@ exports.Create_booking = async function(req, res, next) {
         next(err);
     }
     
+}
+
+exports.getBooking = async function(req, res, next) {
+    const {booking_id} = req.params;
+    console.log(req.params);
+    console.log(booking_id);
+    try{
+        const booking=await booking_DAO.getBooking(booking_id);
+        res.status(200).json({
+            message: "Booking found successfully",
+            booking:booking
+        });
+    }
+    catch(err){
+        next(err);
+    }
 }

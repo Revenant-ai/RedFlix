@@ -1,13 +1,47 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Invoice from '../../components/Invoice'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
+import { useState } from 'react'
+import ProgressBar from "@badrap/bar-of-progress"
 
+
+const progress = new ProgressBar({
+  size:4,
+  color:"#FE595E",
+  className:"z-50",
+  delay:100,
+});
 
 const ConfirmTicket = () => {
   const navigate = useNavigate()
+  const {booking_id} = useParams()
+  const[Booking,setBooking]=useState({})  
+  const [isLoading, setLoading] = useState(true);
 
+  useEffect(async () => {
+    const config = {
+      header: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const res = await axios.get(`/api/home/getbooking/${booking_id}`, config)
+    setBooking(res.data.booking) 
+    progress.finish()
+    setLoading(false);
+   
+  }, [])
+
+  if (isLoading) {
+    progress.start();
+    return <div></div>
+  }
   return (
-    <>
+    
+    <div>
+      {console.log(Booking)}
       <nav className='bg-gray-800'>
         <div className='max-w-7xl mx-auto px-2 sm:px-6 lg:px-8'>
           <div className='relative flex items-center justify-between h-16'>
@@ -37,7 +71,54 @@ const ConfirmTicket = () => {
               </div>
             </nav>
             <div className='m-5'>
-              <Invoice />
+            <div>
+      <div className="grid grid-rows-3 grid-flow-col gap-5 m-6">
+        <span className="row-span-3">
+          <p className="text-gray-500 font-semibold">
+            {Booking.movie_title}
+            <br /> <span className="font-normal">Hindi 2D</span>
+          </p>
+        </span>
+        <span className="row-span-3">
+          <p className="text-gray-500 font-semibold">
+            &nbsp;&nbsp;&nbsp;&nbsp;{Booking.ticket_qty} <br /> Tickets
+          </p>
+        </span>
+      </div>
+      <div className="ml-5 flex flex-row gap-2">
+        {
+          Booking.seats.map(
+            (seat,index)=>{
+              console.log(seat)
+              
+              return <p> {seat} </p>
+            }
+          )
+        } <br /> 
+      </div>
+      <div className="ml-5">Date & Time</div>
+      <br />
+      <hr />
+      <div className="grid grid-rows-3 grid-flow-col gap-5 m-6">
+        <span className="row-span-3">
+          <p className="text-gray-500 font-semibold">Sub Total</p>
+          <p className="font-light mt-3">+ Convenience fees</p>
+        </span>
+        <span className="row-span-3">
+          <p className="text-gray-500 font-semibold">₹{Booking.amount}</p>
+          <p className="font-light mt-3">₹{(Booking.amount * 20)/100}</p>
+        </span>
+      </div>
+      <br />
+      <nav className="bg-red-500">
+        <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-10">
+          <div className="relative flex items-center justify-between h-16">
+            <p className="text-white">Amount Payable</p>
+            <p className="font-bold text-white text-lg">₹ {parseInt(Booking.amount) + ((Booking.amount * 20)/100)}</p>
+          </div>
+        </div>
+      </nav>
+    </div>
             </div>
           </div>
           <div className='m-3'>
@@ -61,7 +142,7 @@ const ConfirmTicket = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
