@@ -44,3 +44,9 @@ const Movie=require("../models/Movie")
         const movies=await Movie.find({})
         return movies
     }
+
+    exports.changeStatus=async(movie_id)=>{
+        const movie=await Movie.findOneAndUpdate({id:movie_id},
+            {status:"released"})
+            return movie
+    }

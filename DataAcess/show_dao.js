@@ -95,8 +95,8 @@ exports.getShow_by_id=async(id)=>{
 exports.holdSeats=async(show_id,seats)=>{
     for(let i=0;i<seats.length;i++){
         const id=seats[i]
-        let row=parseInt(id.split("-")[0])-1;
-        let col=parseInt(id.split("-")[1])-1;
+        let row=parseInt(id.split("-")[0]);
+        let col=parseInt(id.split("-")[1]);
         console.log(row,col);
         await Show.findByIdAndUpdate(show_id,{$set:{[`grid.${row}.${col}.isAvailable`]:false}});
         
@@ -106,8 +106,8 @@ exports.holdSeats=async(show_id,seats)=>{
 exports.releaseSeats=async(show_id,seats)=>{
   for(let i=0;i<seats.length;i++){
       const id=seats[i]
-      let row=parseInt(id.split("-")[0])-1;
-      let col=parseInt(id.split("-")[1])-1;
+      let row=parseInt(id.split("-")[0]);
+      let col=parseInt(id.split("-")[1]);
       console.log(row,col);
       await Show.findByIdAndUpdate(show_id,{$set:{[`grid.${row}.${col}.isAvailable`]:true}});
       

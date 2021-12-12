@@ -50,7 +50,7 @@ const App=()=>{
             <Route excat path="/theater-screen" element={<Manage_screen/>}/>
             <Route exact path="/movie-detail/:movie_id" element={<MovieDetails/>}/>
             <Route exact path="/shows/:movie_id" element={<MainShowsByMovie/>}/>
-            <Route exact path="/confirm" element={<ConfirmTicket/>}/>
+            <Route exact path="/confirm/:booking_id" element={<ConfirmTicket/>}/>
             {/*temp route*/}
             {/*<Route exact path="/show/:show_id" element={<SeatSelection/>}/>*/}
            </Routes>
