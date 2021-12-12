@@ -55,7 +55,6 @@ exports.Add_show = async (req, res) => {
     const {movie_id, theater_id, date,time, screen,price} = req.body;
     console.log(date);
     const d=new Date(date);
-<<<<<<< HEAD
     const newdate=new Date();
     console.log(d);
     newdate.setUTCDate(d.getDate());
@@ -67,15 +66,6 @@ exports.Add_show = async (req, res) => {
     const seats=0
     const grid=await Get_grid(theater_id,screen)
     const show = await show_DAO.addShow(movie_id, theater_id, newdate,time, screen,price,seats,grid)
-=======
-    await movie_DAO.changeStatus(movie_id);
-    d.setHours(time.split(":")[0]);
-    console.log(d)
-    d.setMinutes(time.split(":")[1]);
-    const seats=0
-    const grid=await Get_grid(theater_id,screen)
-    const show = await show_DAO.addShow(movie_id, theater_id, d,time, screen,price,seats,grid)
->>>>>>> master
     res.send(show)
 }
 
