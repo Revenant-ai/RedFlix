@@ -35,6 +35,8 @@ exports.getShows_by_movie_id=async(movie)=>{
   dayaftertom.setMinutes(0);
   today=convertToUTC(today);
   dayaftertom=convertToUTC(dayaftertom);
+  console.log(today)
+  console.log(dayaftertom)
     const shows=await Show.aggregate([
       {
         '$match': {
@@ -83,7 +85,6 @@ exports.getShows_by_movie_id=async(movie)=>{
         }
       }
     ])
-    console.log(shows);
     return shows;
 }
 exports.getShow_by_id=async(id)=>{
