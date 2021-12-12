@@ -25,3 +25,9 @@ exports.getShows=async (req,res,next)=>{
   const showswithmovie = {theaters:shows,movie:movie};
   res.send(showswithmovie);
 }
+
+exports.changeStatus=async(req,res,next)=>{
+  const movie=await Movie_DAO.changeStatus(req.params.movie_id);
+  console.log(movie)
+}
+
