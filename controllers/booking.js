@@ -3,7 +3,7 @@ const booking_DAO=require('../DataAcess/booking_dao');
 const show_DAO=require('../DataAcess/show_dao');
 
 exports.Create_booking = async function(req, res, next) {
-    const {movie_title,ticket_qty,seats,amount,show_id} = req.body;
+    const {movie_title,ticket_qty,seats,date,time,amount,show_id} = req.body;
     const booking_id=crypto.randomBytes(10).toString('hex');
     try{
         const booking=await booking_DAO.createBooking(movie_title,ticket_qty,seats.id,date,time,amount,booking_id,show_id);

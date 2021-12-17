@@ -66,6 +66,7 @@ exports.Add_show = async (req, res) => {
     const seats=0
     const grid=await Get_grid(theater_id,screen)
     const show = await show_DAO.addShow(movie_id, theater_id, newdate,time, screen,price,seats,grid)
+    const movie=await movie_DAO.changeStatus(movie_id)
     res.send(show)
 }
 

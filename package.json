@@ -26,6 +26,7 @@
     "passport-google-oauth2": "^0.2.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-oauth2": "^1.6.1",
+    "razorpay": "^2.8.0",
     "request": "^2.88.2",
     "stripe": "^8.191.0"
   },

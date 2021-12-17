@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"
 
 function SeatSelection({show,movie_name,theater_name}) {
     const show_id=show._id
-
+    console.log(show)
     const [tickets,setTickets]=useState({id:[],index:[]})
     const [warning,setWarning]=useState(" ")
     const grid=show.grid
@@ -17,7 +17,7 @@ function SeatSelection({show,movie_name,theater_name}) {
     {
         if(tickets.id.includes(id))
         {
-            if(tickets.length>=10)
+            if(tickets.id.length>=10)
             {
             setWarning("");
             }
@@ -26,7 +26,7 @@ function SeatSelection({show,movie_name,theater_name}) {
            setTickets({id:newTickets,index:newTicketsIndex});
         }
         else{
-            if(tickets.length>=10)
+            if(tickets.id.length>=10)
             {
             setWarning("Cannot select more than 10 tickets!!!");
             return;
@@ -45,10 +45,13 @@ function SeatSelection({show,movie_name,theater_name}) {
             },
           };
           console.log(movie_name)
+          
         const {data}=await axios.post("/api/home/book", {
             movie_title:movie_name,
             ticket_qty:tickets.id.length,
             seats:tickets,
+            date:show.date.split("T")[0],
+            time:show.time,
             amount:tickets.id.length*show.price,
             show_id:show_id,
         },config);
@@ -103,7 +106,7 @@ function SeatSelection({show,movie_name,theater_name}) {
             <h1 className="text-2xl sm:text-4xl text-white mb-2">{movie_name}</h1>
             <h1 className="text-lg sm:text-xl text-white">{theater_name}</h1>
             </section>
-            <h4 className="text-sm sm:text-lg text-white">Total tickets: {tickets.length}</h4>
+            <h4 className="text-sm sm:text-lg text-white">Total tickets: {tickets.id.length}</h4>
             </section>
             <p className="text-md text-red-700 place-self-center mb-2 h-6">{warning}</p>
             <div className=" text-white place-self-center mb-2">
@@ -114,7 +117,7 @@ function SeatSelection({show,movie_name,theater_name}) {
                </table>
             </div>
             <div className="place-self-center">
-                <button onClick={onBookClick} className="bg-red-600 text-white px-4 py-2 rounded-md">Book, Total amount: {tickets.length*parseInt(show.price)}</button>
+                <button onClick={onBookClick} className="bg-red-600 text-white px-4 py-2 rounded-md">Book, Total amount: {tickets.id.length*parseInt(show.price)}</button>
             </div>
         </div>
     )

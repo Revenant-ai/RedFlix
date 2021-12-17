@@ -22,6 +22,7 @@ import ShowsByMovie from './screens/Client/ShowsByMovie'
 import SeatSelection from './screens/Client/SeatSelection'
 import MainShowsByMovie from './screens/Client/MainShowsByMovie'
 import ConfirmTicket from './screens/Client/confirmation'
+import Payment from './screens/Client/Payment'
 
 
 
@@ -53,6 +54,7 @@ const App=()=>{
             <Route exact path="/confirm/:booking_id" element={<ConfirmTicket/>}/>
             {/*temp route*/}
             {/*<Route exact path="/show/:show_id" element={<SeatSelection/>}/>*/}
+            <Route exact path="/payment/:booking_id" element={<Payment/>}/>
            </Routes>
          </div>
      </Router>
