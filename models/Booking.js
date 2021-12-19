@@ -5,10 +5,11 @@ const BookingSchema = new mongoose.Schema({
     booking_id:{
         type: String,
         required: true
+
     }, 
     movie_title:{
         type: String,
-        required: true
+        required: [true, 'Please add a movie title']
     },
     
     email:{
@@ -20,15 +21,15 @@ const BookingSchema = new mongoose.Schema({
     },
     amount:{
         type: String,
-        required: true
+        required: [true, 'Please add a amount']
     },
     show_id:{
         type: String,
-        required: true
+        required: [true, 'Please add a show id']
     },
     ticket_qty:{
         type: Number,
-        required: true
+        required: [true, 'Please add a ticket quantity']
     },
     date:{
         type: String,
@@ -38,7 +39,7 @@ const BookingSchema = new mongoose.Schema({
     },
     booking_status:{
         type: String,
-        required: true
+        required: [true, 'Please add a booking status']
     },
     seats:{
         type: Array
