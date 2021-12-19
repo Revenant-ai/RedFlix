@@ -4,6 +4,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import logo from "../../components/images/logo.png";
 import smallLogo from "../../components/images/logo.png";
+import { resetPasswordApi } from "../../services/AuthService";
 
 const ResetPasswordScreen = ({ match }) => {
   const [password, setPassword] = useState("");
@@ -31,13 +32,11 @@ const ResetPasswordScreen = ({ match }) => {
     }
     const tok = res_token;
     try {
-      const { data } = await axios.put(
-        `/api/auth/resetpassword/${tok}`,
+      const { data } = await resetPasswordApi(
+        tok,
         {
           password,
-        },
-
-        config
+        }
       );
 
       window.location.href = "/login";

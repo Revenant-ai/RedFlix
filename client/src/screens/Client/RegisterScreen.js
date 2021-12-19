@@ -4,6 +4,7 @@ import "../../index.css";
 import logo from "../../components/images/logo.png";
 import { useNavigate } from "react-router-dom";
 import {Link} from "react-router-dom";
+import { registerApi } from "../../services/AuthService";
 ;
 
 const RegisterScreen = ({ history }) => {
@@ -19,12 +20,7 @@ const RegisterScreen = ({ history }) => {
   const registerHandler = async (e) => {
     e.preventDefault();
    
-    const config = {
-      header: {
-        "Content-Type": "application/json",
-      },
-    };
-
+    
     if (password !== confirm_password) {
       setPassword("");
       setConfirmPassword("");
@@ -35,16 +31,14 @@ const RegisterScreen = ({ history }) => {
     }
 
     try {
-      const { data } = await axios.post(
-        "/api/auth/register",
+      const { data } = await registerApi(
         {
           email,
           password,
           theater_name,
           theater_address,
           theater_city, 
-        },
-        config
+        }
       );
 
       localStorage.setItem("authToken", data.token);

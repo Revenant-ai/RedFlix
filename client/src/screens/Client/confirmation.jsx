@@ -6,8 +6,9 @@ import { useState } from 'react'
 import ProgressBar from "@badrap/bar-of-progress"
 import Invoice  from "../../components/Invoice"
 import logo from "../../components/images/logo.png"
-
-
+import { loginSuccessApi} from "../../services/AuthService"
+import { getBookingApi } from "../../services/BookingService"
+import {payment, paymentSuccessApi} from "../../services/PaymentService"
 
 
 
@@ -48,18 +49,17 @@ const ConfirmTicket = () => {
 
 
   useEffect(async () => {
-    const config = {
-      header: {
-        "Content-Type": "application/json",
-      },
-    };
-    const respo=await axios.get("/api/auth/login/success")
-    setClient(respo.data.user)
-    const res = await axios.get(`/api/home/getbooking/${booking_id}`, config)
-    setBooking(res.data.booking) 
+    // const config = {
+    //   header: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
+    const respo = await loginSuccessApi();
+    setClient(respo.data.user);
+    const res = await getBookingApi(booking_id);
+    setBooking(res.data.booking);
     progress.finish()
     setLoading(false);
-   
   }, [])
 
   if (isLoading) {
@@ -76,7 +76,7 @@ const ConfirmTicket = () => {
       return
     }
 
-    const data=await axios.post("/api/home/payment",{
+    const data=await payment({
         amount:Booking.amount,
         booking_id:Booking._id,
         email:Client.emails[0].value  
@@ -92,12 +92,13 @@ const ConfirmTicket = () => {
       description: "Thank you for booking with us",
       image: logo,
       order_id: data.data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-      handler: function (response){
-        axios.post("/api/home/payment/success",{
+      handler: async function (response){
+        paymentSuccessApi({
           booking_id:Booking._id,
           transaction_id:response.razorpay_payment_id,
           email:Client.emails[0].value
-      }, navigate("/"))
+      }).then(navigate("/"))
+      
     },
 
       prefill: {

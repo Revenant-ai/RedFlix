@@ -4,6 +4,8 @@ import Modal from "react-modal";
 import List_card from "../../components/List_card";
 import ScreenArrangement from "./ScreenArrangement";
 import { useNavigate } from "react-router-dom";
+import { getCurrentUserApi } from "../../services/AuthService";
+import { getTheaterApi } from "../../services/TheaterService";
 
 const customStyles = {
   content: {
@@ -22,18 +24,12 @@ const Manage_screen = () => {
 
   useEffect(() => {
     const Auth_confirm = async () => {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-        },
-      };
       try {
-        const {data}=await axios.get("/api/auth/getCurrentUser", config)
+        const {data}=await getCurrentUserApi()
         const theat_id=(data._id)
         console.log(theat_id)
-          axios.get(`/api/theat-admin/gettheater/${theat_id}`).then((res) => {
-            setScreens(res.data.screens);
+          getTheaterApi(theat_id).then((res) => {
+            setScreens(res.data.screens===undefined?[]:res.data.screens);
             console.log(res.data)
           })
       } catch (error) {
@@ -49,7 +45,7 @@ const Manage_screen = () => {
    {screens.map((screen) => (
         <List_card key={screen} screen={screen.screen_num} />
       ))} 
-      <List_card />
+     <List_card />
       <div>
         <button
           onClick={() => setIsOpen(true)}
@@ -59,14 +55,14 @@ const Manage_screen = () => {
         </button>
       </div>
 
-      <Modal isOpen={modalIsOpen} style={customStyles}>
+      <Modal isOpen={modalIsOpen} style={customStyles} >
         <ScreenArrangement />
         <button
           onClick={() => setIsOpen(false)}
           class=" bg-red-700 hover:bg-red-800 py-2 px-4 rounded text-white"
         >
           Close
-        </button>
+        </button >
       </Modal>
     </div>
   );

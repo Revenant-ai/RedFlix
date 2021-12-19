@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import logo from "../../components/images/logo.png"
 import smallLogo from "../../components/images/redflix-logo-small.png"
+import { forgotPasswordApi } from "../../services/AuthService";
 const ForgotPasswordScreen = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
@@ -9,19 +10,8 @@ const ForgotPasswordScreen = () => {
 
   const forgotPasswordHandler = async (e) => {
     e.preventDefault();
-
-    const config = {
-      header: {
-        "Content-Type": "application/json",
-      },
-    };
-
     try {
-      const { data } = await axios.post(
-        "/api/auth/forgotpassword",
-        { email },
-        config
-      );
+      const { data } = await forgotPasswordApi({ email })
 
       setSuccess(data.data);
     } catch (error) {

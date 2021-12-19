@@ -5,6 +5,8 @@ import Crewbox from "../../components/Crewbox";
 import Header from "../../components/Header";
 import Poster from "../../components/Poster";
 import ProgressBar from "@badrap/bar-of-progress"
+import { loginSuccessApi } from "../../services/AuthService";
+import { getMovieApi } from "../../services/MovieService";
 
 const progress = new ProgressBar({
   size:4,
@@ -20,12 +22,12 @@ function MovieDetails() {
   const [Client,setClient]=useState("no user")
   
    useEffect(() => {
-    axios.get(`/api/home/movie/${movie_id}`)
+    getMovieApi(movie_id)
     .then(res => {
       setMovieDetails(res.data);
       setLoading(false);
       progress.finish()
-      axios.get("/api/auth/login/success").then(res=>{
+      loginSuccessApi().then(res=>{
         setClient(res.data.user)
         
       }) 

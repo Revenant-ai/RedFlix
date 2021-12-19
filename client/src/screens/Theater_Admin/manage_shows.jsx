@@ -4,6 +4,9 @@ import Admin_header from "../../components/admin_header";
 import ScreenArrangement from "./ScreenArrangement";
 import Modal from "react-modal";
 import axios from "axios";
+import { addShowApi } from "../../services/ShowService";
+import { getCurrentUserApi } from "../../services/AuthService";
+import { getAllMovieApi } from "../../services/MovieService";
 
 const customStyles = {
   content: {
@@ -33,9 +36,7 @@ const Manage_shows = () => {
       },
     };
     try {
-      const { data } = axios
-        .post(
-          `/api/theat-admin/addshow`,
+      const { data } = addShowApi(
           {
             movie_id: movie_name,
             screen: screen_num,
@@ -44,7 +45,6 @@ const Manage_shows = () => {
             time: time,
             price: price,
           },
-          config
         )
         .then((res) => {
           console.log(res);
@@ -57,21 +57,14 @@ const Manage_shows = () => {
   };
 
   useEffect(() => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-      },
-    };
-
     try {
-      axios.get("/api/auth/getCurrentUser", config).then((res) => {
+      getCurrentUserApi().then((res) => {
         set_Theater_id(res.data._id);
       });
     } catch (error) {
       console.log(error);
     }
-    axios.get("/api/home/all-movie").then((res) => {
+    getAllMovieApi().then((res) => {
       console.log(res.data);
       set_movieList(res.data);
     });

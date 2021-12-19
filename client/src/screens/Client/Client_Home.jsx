@@ -5,6 +5,7 @@ import Header from "../../components/Header"
 import ProgressBar from "@badrap/bar-of-progress"
 import Featured from "../../components/Featured";
 import "../../Stylesheets/home.css";
+import { loginSuccessApi } from "../../services/AuthService";
 
 
 const progress = new ProgressBar({
@@ -31,7 +32,7 @@ const Client_Home = () => {
         setnowplaying(res[1].data);
       }),
       setLoading(false),
-      axios.get("/api/auth/login/success").then(res=>{
+      loginSuccessApi().then(res=>{
         setClient(res.data.user)
       })    
       );

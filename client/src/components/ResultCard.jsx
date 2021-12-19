@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
+import { addMovieApi } from "../services/MovieService";
 
 
 const ResultCard = ({ movie }) => {
@@ -11,18 +12,12 @@ const ResultCard = ({ movie }) => {
   const MovieHandler = async (e) => {
     e.preventDefault();
   
-    const config = {
-      header: {
-        "Content-Type": "application/json",
-      },
-    };
     try {
-      const { data } = await axios.put(
-        `/api/sys/addmovie/${movie.id}`,
+      const { data } = await addMovieApi(
+        movie.id,
         {
           movie: movie.id,
         },
-        config
       );
       window.location.href = "/";
     } catch (error) {
