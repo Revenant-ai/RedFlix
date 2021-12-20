@@ -25,3 +25,11 @@ exports.addMovieApi = async (movie_id,body)=>{
         config
       );
 }
+
+exports.getUpcomingMoviesApi = async ()=>{
+  return await axios.get("/api/home/upc");
+}
+
+exports.getReleasedMoviesApi = async ()=>{
+  return await axios.get("/api/home/curr");
+}
