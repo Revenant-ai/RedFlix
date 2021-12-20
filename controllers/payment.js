@@ -25,5 +25,5 @@ exports.payment_success=async(req,res)=>{
 
     const {booking_id,transaction_id,email}=req.body;
     const book=await booking_DAO.addTransaction(booking_id,transaction_id,email);
-    console.log(book);
+    res.status(200).send(book);
 }

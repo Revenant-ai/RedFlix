@@ -1,4 +1,4 @@
-const { default: axios } = require("axios");
+
 const theater_DAO = require("../DataAcess/theater_dao");
 const show_DAO = require("../DataAcess/show_dao");
 const screen_DAO = require("../DataAcess/screen_dao");
@@ -79,7 +79,6 @@ exports.Get_theater_Details=async (req, res) => {
     const theater_id=req.params.theaterid;
     console.log(req.params)
     const theater = await theater_DAO.gettheater(theater_id);
-    console.log(theater)
     res.send(theater)
 }
 

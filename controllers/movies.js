@@ -28,6 +28,6 @@ exports.getShows=async (req,res,next)=>{
 
 exports.changeStatus=async(req,res,next)=>{
   const movie=await Movie_DAO.changeStatus(req.params.movie_id);
-  console.log(movie)
+  res.status(200)
 }
 
