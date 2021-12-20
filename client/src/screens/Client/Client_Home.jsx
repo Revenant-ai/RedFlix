@@ -52,10 +52,10 @@ const Client_Home = () => {
             <Featured Banner={nowplaying} className="object-cover"/>    
          </div>
          
-        <h1 class="text-red-600 text-5xl my-5 mx-2 font-serif">Currently Playing</h1>
+        <h1 class="subpixel-antialiased text-red-600 text-5xl my-5 mx-5 font-semibold">Currently Playing</h1>
         <List list={nowplaying}/>
         <br/>
-        <h1 class="text-red-600 text-5xl my-5 mx-2 font-serif">Upcoming Movies</h1>
+        <h1 class="subpixel-antialiased text-red-600 text-5xl my-5 mx-5 font-semibold">Upcoming Movies</h1>
         <List list={upcoming}/>
         </div>
       
