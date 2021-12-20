@@ -30,14 +30,14 @@ exports.Create_booking = async function(req, res, next) {
 
 exports.getBooking = async function(req, res, next) {
     const {booking_id} = req.params;
-    console.log(req.params);
-    console.log(booking_id);
+    
     try{
         const booking=await booking_DAO.getBooking(booking_id);
         res.status(200).json({
             message: "Booking found successfully",
             booking:booking
         });
+        console.log(booking);
     }
     catch(err){
         next(err);

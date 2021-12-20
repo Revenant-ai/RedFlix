@@ -77,7 +77,6 @@ exports.Get_show=async (req, res) => {
 }
 exports.Get_theater_Details=async (req, res) => {
     const theater_id=req.params.theaterid;
-    console.log(req.params)
     const theater = await theater_DAO.gettheater(theater_id);
     res.send(theater)
 }
