@@ -6,6 +6,9 @@ import ProgressBar from "@badrap/bar-of-progress"
 import Net from '../../components/net'
 import Upi from '../../components/upi'
 import axios from 'axios'
+import {loginSuccessApi } from '../../services/AuthService'
+import { getBookingApi } from '../../services/BookingService'
+import { paymentApi } from '../../services/PaymentService'
 const progress = new ProgressBar({
   size:4,
   color:"#FE595E",
@@ -23,15 +26,10 @@ const Payment = () => {
 
 
   useEffect(async () => {
-    const config = {
-      header: {
-        "Content-Type": "application/json",
-      },
-    };
 
-    const res = await axios.get(`/api/home/getbooking/${booking_id}`, config)
+    const res = await getBookingApi(booking_id)
     setBooking(res.data.booking) 
-    const respo=await axios.get("/api/auth/login/success")
+    const respo=await loginSuccessApi()
     setClient(respo.data.user)
     
     progress.finish()
@@ -45,17 +43,13 @@ const Payment = () => {
   }
   const handleSubmit=async ()=>{
     console.log(Client.emails[0].value)
-    const config = {
-      header: {
-        "Content-Type": "application/json",
-      },
-    };
-     const res=await axios.post(`/api/home/payment`,{
+    
+     const res=await paymentApi({
        token:"tok_visa",
        amount:Booking.amount,
        email:Client,
        booking_id:booking_id
-     },config)
+     })
      
   }
   const handleCard = () => {

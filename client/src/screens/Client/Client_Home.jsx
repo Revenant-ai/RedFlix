@@ -5,6 +5,8 @@ import Header from "../../components/Header"
 import ProgressBar from "@badrap/bar-of-progress"
 import Featured from "../../components/Featured";
 import "../../Stylesheets/home.css";
+import { loginSuccessApi } from "../../services/AuthService";
+import { getReleasedMoviesApi, getUpcomingMoviesApi } from "../../services/MovieService";
 
 
 const progress = new ProgressBar({
@@ -19,30 +21,28 @@ const Client_Home = () => {
   const [upcoming, setupcoming] = useState([]);
   const [nowplaying, setnowplaying] = useState([]);
 
-  const upc = axios.get("/api/home/upc");
-  const curr = axios.get("/api/home/curr");
+  const upc = getUpcomingMoviesApi();
+  const curr = getReleasedMoviesApi();
   const [Client,setClient]=useState("no user")
   const [isLoading, setLoading] = useState(true);
   
   useEffect(async () => {
-    axios.all([upc, curr]).then(
-      axios.spread((...res) => {
+    Promise.all([upc, curr]).then(
+      (res) => {
         setupcoming(res[0].data);
         setnowplaying(res[1].data);
-      }),
-      setLoading(false),
-      axios.get("/api/auth/login/success").then(res=>{
+      
+        progress.finish();
+      setLoading(false)
+      loginSuccessApi().then(res=>{
         setClient(res.data.user)
       })    
-      );
+    });
   }, [])
 
     if(isLoading){
-      return(
-        <div className="flex justify-center items-center h-screen">
-          Loading
-        </div>
-      )
+      progress.start();
+      return<div></div>
     }
     return (
       
@@ -52,10 +52,10 @@ const Client_Home = () => {
             <Featured Banner={nowplaying} className="object-cover"/>    
          </div>
          
-        <h1 class="text-red-600 text-5xl my-5 mx-2 font-serif">Currently Playing</h1>
+        <h1 class="subpixel-antialiased text-red-600 text-5xl my-5 mx-5 font-semibold">Currently Playing</h1>
         <List list={nowplaying}/>
         <br/>
-        <h1 class="text-red-600 text-5xl my-5 mx-2 font-serif">Upcoming Movies</h1>
+        <h1 class="subpixel-antialiased text-red-600 text-5xl my-5 mx-5 font-semibold">Upcoming Movies</h1>
         <List list={upcoming}/>
         </div>
       

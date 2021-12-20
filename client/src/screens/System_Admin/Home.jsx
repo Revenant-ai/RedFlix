@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import ResultCard from "../../components/ResultCard"
+import { TMDBSearchService } from '../../services/MovieService'
 
 const Sys_Admin_Home = () => {
 
@@ -10,7 +11,7 @@ const Sys_Admin_Home = () => {
         e.preventDefault()
         setQuery(e.target.value)
 
-        fetch(`https://api.themoviedb.org/3/search/movie?api_key=129882aa35cd44a9f03ea40193b93383&language=en-US&page=1&include_adult=false&query=${e.target.value}`)
+        TMDBSearchService(e.target.value)
         .then(res => res.json())
         .then(data => {
             if(!data.errors){

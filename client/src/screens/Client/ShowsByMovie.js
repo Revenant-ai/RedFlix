@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import Header from "../../components/Header";
 import TheaterShows from "../../components/TheaterShows"
 import ProgressBar from "@badrap/bar-of-progress"
+import { getShowsByMovieApi } from "../../services/ShowService";
 
 const progress = new ProgressBar({
   size:4,
@@ -28,7 +29,7 @@ function ShowsByMovie({movie_id,changeMainDiv}) {
 
 
   useEffect(() => {
-    axios.get(`/api/home/shows/movie/${movie_id}`)
+    getShowsByMovieApi(movie_id)
     .then(res => {
       setTheaterShows(res.data)
       setLoading(false);

@@ -1,5 +1,7 @@
 import { useState,useEffect } from "react";
 import axios from "axios";
+import { getCurrentUserApi } from "../../services/AuthService";
+import { addScreenApi } from "../../services/TheaterService";
 
 function ScreenArrangement() {
     const [rowstate,setRow]=useState(0);
@@ -9,22 +11,14 @@ function ScreenArrangement() {
     const [theater_id,set_theater_id]=useState("")
 
     const Submit_handler=async (e)=>{
-    const config = {
-      header: {
-        "Content-Type": "application/json",
-      },
-    };
-
-
+    
     try {
-      axios.post(
-        "/api/theat-admin/addscreen",
+      addScreenApi(
         {
             theater_id:theater_id,
             Screen_num:Screen_num,
             grid
         },
-        config
       ).then((res)=>{
           alert("Screen Added")
         })
@@ -33,20 +27,13 @@ function ScreenArrangement() {
     }   
     }
     useEffect(() => {
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-          },
-        };
         try{
-            axios.get("/api/auth/getCurrentUser",config).then((res)=>{
+            getCurrentUserApi().then((res)=>{
               set_theater_id(res.data._id);
           })
           }catch(error){
             console.log(error);
-          }
-    
+          }  
     }, []);
     const initialiseStatusGrid = (rows,cols)=>{
         let statusGrid=[];

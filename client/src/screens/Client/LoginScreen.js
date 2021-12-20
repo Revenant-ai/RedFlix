@@ -4,6 +4,7 @@ import "../../index.css";
 import logo from "../../components/images/logo.png";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { loginApi } from "../../services/AuthService";
 const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,22 +12,12 @@ const RegisterScreen = () => {
   let Navigate = useNavigate()
   const registerHandler = async (e) => {
     e.preventDefault();
-    
-    const config = {
-      header: {
-        "Content-Type": "application/json",
-      },
-    };
 
     try {
-      const { data } = await axios.post(
-        "/api/auth/login",
-        {
-          email,
-          password,
-        },
-        config
-      );
+      const { data } = await loginApi({
+        email,
+        password,
+      })
 
       localStorage.setItem("authToken", data.token);
 

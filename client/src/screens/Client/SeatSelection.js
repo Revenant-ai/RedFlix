@@ -2,6 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { useParams} from "react-router";
 import { useNavigate } from "react-router-dom"
+import { createBookingApi } from "../../services/BookingService";
 
 
 function SeatSelection({show,movie_name,theater_name}) {
@@ -39,14 +40,9 @@ function SeatSelection({show,movie_name,theater_name}) {
 
 
     const onBookClick=async ()=>{
-        const config = {
-            header: {
-              "Content-Type": "application/json",
-            },
-          };
           console.log(movie_name)
           
-        const {data}=await axios.post("/api/home/book", {
+        const {data}=await createBookingApi({
             movie_title:movie_name,
             ticket_qty:tickets.id.length,
             seats:tickets,
@@ -54,7 +50,7 @@ function SeatSelection({show,movie_name,theater_name}) {
             time:show.time,
             amount:tickets.id.length*show.price,
             show_id:show_id,
-        },config);
+        });
         console.log(data)
         Navigate(`/confirm/${data.booking_id}`)
     }

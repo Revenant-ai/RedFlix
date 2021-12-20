@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 import "../Stylesheets/home.css"
 
-function Poster({ title, runtime, genres, status, backdrop, release }) {
+function Poster({ movie_id, title, runtime, genres, status, backdrop, release }) {
   const formats = ["2D", "3D", "4D"];
   const button_state =
     status === "released"
@@ -49,11 +50,11 @@ function Poster({ title, runtime, genres, status, backdrop, release }) {
         </div>
       ))}
     </section>
-    <button
+    <Link to={`/shows/${movie_id}`}><button
       className={`w-80 subpixel-antialiased border border-red-600 text-lg font-semibold md:text-2xl px-3 py-1 rounded-md my-2 transition tranform ease-in-out ${button_state}`}
     >
       {button_text}
-    </button>
+    </button></Link>
   </div>
       </div>
       <div className="Banner_fade"/>

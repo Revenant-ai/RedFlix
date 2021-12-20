@@ -8,6 +8,7 @@ import {
 } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
 import "../Stylesheets/home.css"
+import { Link } from "react-router-dom";
 
 const Featured = ({ Banner }) => {
   const [backdrop, setbackdrop] = useState("");
@@ -41,9 +42,9 @@ const Featured = ({ Banner }) => {
                       <p className="text-white my-5">
                         {Banner[index].description}
                       </p>
-                    <button class="bg-red-700 relative rounded h-10 w-40 text-2xl text-white">
+                    <Link to={`/shows/${movie.id}`}><button class="bg-red-700 relative rounded h-10 w-40 text-2xl text-white">
                       Book Tickets
-                    </button>
+                    </button></Link>
                   </div>
                   <div></div>
                 </div>
