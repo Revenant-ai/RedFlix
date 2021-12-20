@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
-import axios from 'axios'
 import { useState } from 'react'
 import ProgressBar from "@badrap/bar-of-progress"
 import Invoice  from "../../components/Invoice"
