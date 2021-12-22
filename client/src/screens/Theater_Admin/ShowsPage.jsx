@@ -24,7 +24,7 @@ function ShowsPage() {
   return (
     <div className="text-white">
       {theater_shows.map((shows) => (
-        <div className="m-5 border-t border-red-600 w-full">
+        <div className="p-5 border-t border-red-600 w-full">
           <p className="mt-2 text-2xl">{new Date(shows.date).toDateString()}</p>
           {shows.shows.map((show) => (
             <div className="flex items-center border border-red-600 m-5 rounded-md py-2 px-4">

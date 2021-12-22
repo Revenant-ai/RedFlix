@@ -7,6 +7,7 @@ import axios from "axios";
 import { addShowApi } from "../../services/ShowService";
 import { getCurrentUserApi } from "../../services/AuthService";
 import { getAllMovieApi } from "../../services/MovieService";
+import ShowsPage from "./ShowsPage";
 
 const customStyles = {
   content: {
@@ -74,10 +75,15 @@ const Manage_shows = () => {
   };
 
   return (
-    <div>
+    <div class="flex flex-col w-full items-center">
+      <div class="w-full grow">
+      <ShowsPage/>
+      </div>
+
+
       <button
         onClick={() => setIsOpen(true)}
-        class="bg-transparent hover:bg-red-600 text-red-700  font-semibold hover:text-black py-2 px-4 border border-red-500 hover:border-transparent rounded"
+        class="w-96 -bg-transparent hover:bg-red-600 text-red-700  font-semibold hover:text-black py-2 px-4 border border-red-500 hover:border-transparent rounded"
       >
         Add a show
       </button>

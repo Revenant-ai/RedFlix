@@ -8,6 +8,7 @@ import logo from "../../components/images/logo.png"
 import { loginSuccessApi} from "../../services/AuthService"
 import { getBookingApi } from "../../services/BookingService"
 import {paymentApi, paymentSuccessApi} from "../../services/PaymentService"
+import popcorn from '../../components/images/popcorn.jpg'
 
 
 
@@ -76,7 +77,7 @@ const ConfirmTicket = () => {
     }
 
     const data=await paymentApi({
-        amount:Booking.amount,
+        amount:parseInt(Booking.amount) + parseInt((Booking.amount * 20)/100),
         booking_id:Booking._id,
         email:Client.emails[0].value  
       }
@@ -85,7 +86,7 @@ const ConfirmTicket = () => {
    
     const options = {
       key: process.env.REACT_APP_RAZORPAY_KEY, 
-      amount: data.data.amount, 
+      amount: parseInt(Booking.amount) + ((Booking.amount * 20)/100) , 
       currency: data.data.currency,
       name: "Redflix",
       description: "Thank you for booking with us",
@@ -111,22 +112,17 @@ const ConfirmTicket = () => {
   }
 
   return (
-    
-    <div>
+    <div class="white">
       {console.log(Booking)}
-      <nav className='bg-gray-800'>
-        <div className='max-w-7xl mx-auto px-2 sm:px-6 lg:px-8'>
-          <div className='relative flex items-center justify-between h-16'>
-            <p className='font-extrabold text-red-600 text-4xl'>Sooryavanshi</p>
-          </div>
-        </div>
+      <nav className='bg-black p-7'>
+            <p className='font-extrabold text-red-600 text-4xl'>{Booking.movie_title}</p>
       </nav>
       <div className='grid grid-rows-3 grid-flow-col gap-5 m-6'>
         <div className='row-span-3 col-span-3'>
           <div className='container mx-auto bg-gray-50'>
             <nav className='bg-gray-50'>
               <div className='mt-2 ml-10'>
-                <img  alt='Cinema' />
+                <img  alt='Cinema' src={popcorn}/>
               </div>
             </nav>
           </div>
