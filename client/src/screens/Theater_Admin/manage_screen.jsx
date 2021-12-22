@@ -42,10 +42,12 @@ const Manage_screen = () => {
 
   return (
     <div class="w-full flex flex-col items-center">
+      <h1>
+        <span class="text-red-600 text-3xl">Manage Screen</span>
+      </h1>
    {screens.map((screen) => (
         <List_card key={screen} screen={screen.screen_num} />
       ))} 
-     <List_card />
       <div>
         <button
           onClick={() => setIsOpen(true)}
