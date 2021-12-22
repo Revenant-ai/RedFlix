@@ -114,3 +114,77 @@ exports.releaseSeats=async(show_id,seats)=>{
     }
     
 }
+
+
+exports.getShowsByMovieAndDateForTheater=async(theater_id)=>{
+  let day=new Date();
+  day=convertToUTC(day);
+  console.log(theater_id,day)
+  const shows = await Show.aggregate([
+    {
+      '$match': {
+        '$and': [
+          {
+            'theater_id': theater_id
+          }, {
+            'date': {
+              '$gte': day
+            }
+          }
+        ]
+      }
+    }, {
+      '$sort': {
+        'date': 1
+      }
+    }, {
+      '$group': {
+        '_id': {
+          'date': {
+            '$dateToString': {
+              'format': '%Y-%m-%d', 
+              'date': '$date'
+            }
+          }, 
+          'movie_id': '$movie_id'
+        }, 
+        'shows': {
+          '$push': '$$ROOT'
+        }
+      }
+    }, {
+      '$lookup': {
+        'from': 'movies', 
+        'localField': '_id.movie_id', 
+        'foreignField': 'id', 
+        'as': 'movie'
+      }
+    }, {
+      '$set': {
+        'movie': {
+          '$arrayElemAt': [
+            '$movie', 0
+          ]
+        }
+      }
+    }, {
+      '$group': {
+        '_id': '$_id.date', 
+        'date': {
+          '$first': '$_id.date'
+        },
+        'shows': {
+          '$push': {
+            'movie': '$movie.title', 
+            'movie_shows': '$shows'
+          }
+        }
+      }
+    }, {
+      '$sort': {
+        '_id': 1
+      }
+    }
+  ]);
+  return shows;
+}

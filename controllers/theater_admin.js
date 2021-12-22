@@ -83,4 +83,8 @@ exports.Get_theater_Details=async (req, res) => {
 
 
 
-
+exports.getShowsGroupedByDateAndMovie=async(req,res)=>{
+    const theater_id=req.params.theater_id;
+    const shows= await show_DAO.getShowsByMovieAndDateForTheater(theater_id);
+    res.send(shows);
+}

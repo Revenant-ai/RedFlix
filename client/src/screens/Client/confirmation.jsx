@@ -7,7 +7,7 @@ import Invoice  from "../../components/Invoice"
 import logo from "../../components/images/logo.png"
 import { loginSuccessApi} from "../../services/AuthService"
 import { getBookingApi } from "../../services/BookingService"
-import {payment, paymentSuccessApi} from "../../services/PaymentService"
+import {paymentApi, paymentSuccessApi} from "../../services/PaymentService"
 
 
 
@@ -75,7 +75,7 @@ const ConfirmTicket = () => {
       return
     }
 
-    const data=await payment({
+    const data=await paymentApi({
         amount:Booking.amount,
         booking_id:Booking._id,
         email:Client.emails[0].value  

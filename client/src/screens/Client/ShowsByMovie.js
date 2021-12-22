@@ -32,8 +32,8 @@ function ShowsByMovie({movie_id,changeMainDiv}) {
     getShowsByMovieApi(movie_id)
     .then(res => {
       setTheaterShows(res.data)
+      progress.finish();
       setLoading(false);
-    progress.finish();
     })
   },[]);
 
